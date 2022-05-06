@@ -5,7 +5,7 @@
         <title>Registrazione</title>
     </head>
     <body>
-        <form method="post" action="" id="formBello">
+        <form method="post" action="verificaRegistrazione.php" id="formBello">
             <div>
                 <label>Nome e Cognome</label>
                 <input name="Nome" type="text" required>
@@ -78,11 +78,11 @@
                                                                               //che gestirà il click
 
         function required(){
-            let objs = document.getElementsByTagNameNS("input");
+            let objs = document.getElementsByTagName("input");  
 
-            objs.forEach((item) =>{
-                
-            });
+            for(let i = 0; i < objs.length; i++){
+                if(objs[i].value.length < 1) return false;
+            }
 
             return true;
         }
