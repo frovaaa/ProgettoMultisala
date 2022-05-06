@@ -10,7 +10,7 @@ $cellulare = $_POST['Cellulare'];
 
 $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 //TODO: Da cambiare il IDFRuolo
-$query = "INSERT INTO Utente (IDFRuolo, Nome, Cognome, Username, Password, Email, Cellulare) VALUES (1, $nome, $cognome, $username, $pass, $email, $cellulare)";
+$query = "INSERT INTO Utente (IDFRuolo, Nome, Cognome, Username, Password, Email, Cellulare) VALUES (1, '$nome', '$cognome', '$username', '$pass', '$email', '$cellulare')";
 
 $result  = $connection->query($query);
 

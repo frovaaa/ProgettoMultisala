@@ -14,12 +14,12 @@
 <div class="container">
     <form action="verificaLogin.php" method="post">
         <div class="mb-3">
-            <label for="usernameOrEmail" class="form-label">Email o Username</label>
-            <input type="email" class="form-control" id="usernameOrEmail">
+            <label for="UsernameOrEmail" class="form-label">Email o Username</label>
+            <input type="text" class="form-control" id="UsernameOrEmail">
         </div>
         <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password">
+            <label for="Password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="Password">
         </div>
         <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="rememberMe">
