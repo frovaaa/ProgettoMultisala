@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$userOrEmail = $_POST['usernameOrEmail'];
+$userOrEmail = $_POST['UsernameOrEmail'];
 $pass = $_POST['password'];
 $isEmail = str_contains($userOrEmail, '@');
 
