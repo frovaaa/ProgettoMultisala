@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-$userOrEmail = $_POST['UsernameOrEmail'];
-$pass = $_POST['password'];
+$userOrEmail = (isset($_POST['UsernameOrEmail'])) ? $_POST['UsernameOrEmail'] : "";
+$pass = (isset($_POST['Password'])) ? $_POST['Password'] : "";
 $isEmail = str_contains($userOrEmail, '@');
 
 $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
