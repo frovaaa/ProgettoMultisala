@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$pass = $_POST['Password'];
+$pass = password_hash($_POST['Password'], PASSWORD_BCRYPT);
 $username = $_POST['Username'];
 $nome = $_POST['Nome'];
 $cognome = $_POST['Cognome'];
@@ -12,7 +12,7 @@ $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocater
 //TODO: Da cambiare il IDFRuolo
 $query = "INSERT INTO Utente (IDFRuolo, Nome, Cognome, Username, Password, Email, Cellulare) VALUES (1, '$nome', '$cognome', '$username', '$pass', '$email', '$cellulare')";
 
-$result  = $connection->query($query);
+$result = $connection->query($query);
 
 // definisco mittente e destinatario della mail
 $nome_mittente = "Cinema Multisala";
