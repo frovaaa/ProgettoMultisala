@@ -20,17 +20,34 @@
                 <input name="username" type="text" required>
             </div>
 
-            <div id="passwdControlla">
+            <div>
                 <label>Password</label>
-                <input name="passwd" type="password" required onchange="controlla()">
-                <input type="password" required onchange="controlla()">
+                <input id="p1" name="passwd" type="password" required>
+                <input id="p2" type="password" required>
             </div>
         </form>
     </body>
+    <script>
+        function event(){
+            let p1 = document.getElementById("p1");
+            let p2 = document.getElementById("p2");
 
-<script>
-    function controlla(){
-        let obj = document.getElementById("passwdControlla");
-    }
-</script>
+            p1.addEventListener("input", controlla);
+            p1.addEventListener("propertychange", controlla);
+
+            p2.addEventListener("input", controlla);
+            p2.addEventListener("propertychange", controlla);
+        }
+
+        function controlla(){
+            let p1 = document.getElementById("p1");
+            let p2 = document.getElementById("p2");
+
+            if(p1.value === p2.value){
+                console.log("sono ugualiiii");
+            }else{
+                console.log("Sono diverse");
+            }
+        }
+    </script>
 </html>
