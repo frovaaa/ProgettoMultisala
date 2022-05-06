@@ -13,14 +13,23 @@
 <body>
 <div class="container">
     <form action="verificaLogin.php" method="post">
-       <div class="form-block">
-           <label for="usernameOrEmail"></label><input class="form-input" type="text" name="usernameOrEmail" id="usernameOrEmail">
-       </div>
-        <div class="form-block">
-            <label for="password"></label><input class="form-input" type="password" name="password" id="password">
+        <div class="mb-3">
+            <label for="usernameOrEmail" class="form-label">Email o Username</label>
+            <input type="email" class="form-control" id="usernameOrEmail">
         </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password">
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="rememberMe">
+            <label class="form-check-label" for="rememberMe">Ricordami</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
     </form>
 </div>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
