@@ -17,7 +17,7 @@ if (isset($_SESSION['log'])) {
     unset($_SESSION['log']);
 }
 ?>
-<form method="post" action="verificaRegistrazione.php" id="formBello">
+<form method="post" action="Controllers/verificaRegistrazione.php" id="formBello">
     <div>
         <label>Nome e Cognome</label>
         <input name="nome" type="text" required>

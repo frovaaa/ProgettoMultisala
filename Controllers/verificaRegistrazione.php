@@ -1,26 +1,24 @@
 <?php
+require_once "../queryCollection.php";
 session_start();
 
-$pass = password_hash($_POST['password'], PASSWORD_BCRYPT);
-$username = $_POST['username'];
-$nome = $_POST['nome'];
-$cognome = $_POST['cognome'];
-$email = $_POST['email'];
-$cellulare = $_POST['cellulare'];
+$newUtente = new Utente();
 
-$connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
-//TODO: Da cambiare il IDFRuolo
-$query = "INSERT INTO Utente (IDFRuolo, Nome, Cognome, Username, Password, Email, Cellulare) VALUES (1, '$nome', '$cognome', '$username', '$pass', '$email', '$cellulare')";
+$newUtente->setIdfRuolo(1);
+$newUtente->setPassword(password_hash($_POST['password'], PASSWORD_BCRYPT));
+$newUtente->setUsername($_POST['username']);
+$newUtente->setNome($_POST['nome']);
+$newUtente->setCognome($_POST['cognome']);
+$newUtente->setEmail($_POST['email']);
+$newUtente->setCellulare($_POST['cellulare']);
 
-echo $query;
+$_SESSION["log"] = (insertUtente($newUtente)) ? "Registrazione avvenuta con successo!!" : "Registrazione fallita :(";
 
-$result = $connection->query($query);
-
-
+#region SEND EMAIL
 // definisco mittente e destinatario della mail
 $nome_mittente = "Cinema Multisala";
 $mail_mittente = "cinema@multisala.it";
-$mail_destinatario = $_POST['Email'];
+$mail_destinatario = $newUtente->getEmail();
 // definisco il subject ed il body della mail
 $mail_oggetto = "Conferma Registrazione";
 
@@ -31,7 +29,7 @@ $mail_corpo = <<<HTML
 <title>Conferma registrazione</title>
 </head>
 <body>
-Il tuo account e' stato creato con successo!! Il tuo nome utente è <b>$username</b>
+Il tuo account e' stato creato con successo!! Il tuo nome utente è <b></b>
 </body>
 </html>
 HTML;
@@ -45,8 +43,7 @@ $mail_headers .= "Reply-To: " . $mail_mittente . "\r\n";
 $mail_headers .= "MIME-Version: 1.0\r\n";
 $mail_headers .= "Content-type: text/html; charset=iso-8859-1";
 //mail($mail_destinatario, $mail_oggetto, $mail_corpo, $mail_headers);    //Mando la mail
+#endregion
 
-$_SESSION["log"] = "Registrazione avvenuta con successo!!";
-
-header("Location: login.php");
+header("Location: ../login.php");
 exit();

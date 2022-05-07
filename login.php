@@ -20,7 +20,7 @@ if (isset($_SESSION['log'])) {
 }
 ?>
 <div class="container">
-    <form action="verificaLogin.php" method="post">
+    <form action="Controllers/verificaLogin.php" method="post">
         <div class="mb-3">
             <label for="usernameOrEmail" class="form-label">Email o Username</label>
             <input type="text" class="form-control" id="usernameOrEmail" name="usernameOrEmail" required>

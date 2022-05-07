@@ -1,5 +1,5 @@
 <?php
-include "Models/modelUtente.php";
+require_once "../queryCollection.php";
 session_start();
 
 $userOrEmail = $_POST['usernameOrEmail'];
@@ -23,18 +23,16 @@ if ($data->num_rows > 0) {
             }
 
             //Salvo in sessione l'utente loggato
-            $utente = new Utente($riga['IDUtente']);
-            $_SESSION['Utente'] = $utente;
-
+            $_SESSION['Utente'] = getUtenteById($riga['IDUtente']);
 
             if (isset($_SESSION['redirect'])) header("Location:" . $_SESSION['redirect']);
-            else header("Location:homepage.php");
+            else header("Location:../homepage.php");
             exit();
         }
     }
 
     $_SESSION['log'] = "Credenziali errate!";
-    header("Location:login.php");
+    header("Location:../login.php");
     exit();
 } else {
     echo("<h3>Non esistono dati nella tabella</h3>");

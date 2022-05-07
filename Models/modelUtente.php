@@ -1,75 +1,78 @@
 <?php
 
-class Utente
-{
-    private $nome;
-    private $cognome;
-    private $username;
-    private $email;
-    private $cellulare;
+class Utente {
 
-    public function Utente($IDUtente)
-    {
-        $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+  private $idUtente;
+  private $idfRuolo;
+  private $nome;
+  private $cognome;
+  private $username;
+  private $password;
+  private $email;
+  private $cellulare;
 
-        $query = "SELECT * FROM Utente WHERE IDUtente=" . $IDUtente;
-        $data = $connection->query($query);
-        $data = $data->fetch_assoc();
+  public function getIdUtente() {
+    return $this->idUtente;
+  }
 
-        $this->nome = $data['Nome'];
-        $this->cognome = $data['Cognome'];
-        $this->username = $data['Username'];
-        $this->email = $data['Email'];
-        $this->cellulare = $data['Cellulare'];
-    }
+  public function setIdUtente($idUtente) {
+    $this->idUtente = $idUtente;
+  }
 
-    public function getNome()
-    {
-        return $this->nome;
-    }
+  public function getIdfRuolo() {
+    return $this->idfRuolo;
+  }
 
-    public function getUsername()
-    {
-        return $this->username;
-    }
+  public function setIdfRuolo($idfRuolo) {
+    $this->idfRuolo = $idfRuolo;
+  }
 
-    public function getCognome()
-    {
-        return $this->cognome;
-    }
+  public function getNome() {
+    return $this->nome;
+  }
 
-    public function getEmail()
-    {
-        return $this->email;
-    }
+  public function setNome($nome) {
+    $this->nome = $nome;
+  }
 
-    public function getCellulare()
-    {
-        return $this->cellulare;
-    }
+  public function getCognome() {
+    return $this->cognome;
+  }
 
-    public function setNome($nome)
-    {
-        $this->nome = $nome;
-    }
+  public function setCognome($cognome) {
+    $this->cognome = $cognome;
+  }
 
-    public function setCognome($cognome)
-    {
-        $this->cognome = $cognome;
-    }
+  public function getUsername() {
+    return $this->username;
+  }
 
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    }
+  public function setUsername($username) {
+    $this->username = $username;
+  }
 
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
+  public function getPassword() {
+    return $this->password;
+  }
 
-    public function setCellulare($cellulare)
-    {
-        $this->cellulare = $cellulare;
-    }
+  public function setPassword($password) {
+    $this->password = $password;
+  }
+
+  public function getEmail() {
+    return $this->email;
+  }
+
+  public function setEmail($email) {
+    $this->email = $email;
+  }
+
+  public function getCellulare() {
+    return $this->cellulare;
+  }
+
+  public function setCellulare($cellulare) {
+    $this->cellulare = $cellulare;
+  }
+
 }
