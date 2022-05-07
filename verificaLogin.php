@@ -1,8 +1,9 @@
 <?php
+include "Models/modelUtente.php";
 session_start();
 
-$userOrEmail = trim($_POST['usernameOrEmail']);
-$pass = trim($_POST['password']);
+$userOrEmail = $_POST['usernameOrEmail'];
+$pass = $_POST['password'];
 $isEmail = ((strpos($userOrEmail, '@') != false));
 
 $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
@@ -21,10 +22,10 @@ if ($data->num_rows > 0) {
                 setcookie("rememberMe", $riga['IDUtente'], strtotime("+1 week"));
             }
 
+            //Salvo in sessione l'utente loggato
+            $utente = new Utente($riga['IDUtente']);
+            $_SESSION['Utente'] = $utente;
 
-            $_SESSION['Username'] = $userOrEmail;
-            $_SESSION['IDUtente'] = $riga['IDUtente'];
-            $_SESSION['IDFRuolo'] = $riga['IDFRuolo'];
 
             if (isset($_SESSION['redirect'])) header("Location:" . $_SESSION['redirect']);
             else header("Location:homepage.php");

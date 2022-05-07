@@ -12,6 +12,13 @@
 
 </head>
 <body>
+<?php
+session_start();
+if (isset($_SESSION['log'])) {
+    echo "<h3>" . $_SESSION['log'] . "</h3>";
+    unset($_SESSION['log']);
+}
+?>
 <div class="container">
     <form action="verificaLogin.php" method="post">
         <div class="mb-3">

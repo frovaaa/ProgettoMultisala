@@ -2,11 +2,11 @@
 session_start();
 
 $pass = password_hash($_POST['password'], PASSWORD_BCRYPT);
-$username = trim($_POST['username']);
-$nome = trim($_POST['nome']);
-$cognome = trim($_POST['cognome']);
-$email = trim($_POST['email']);
-$cellulare = trim($_POST['cellulare']);
+$username = $_POST['username'];
+$nome = $_POST['nome'];
+$cognome = $_POST['cognome'];
+$email = $_POST['email'];
+$cellulare = $_POST['cellulare'];
 
 $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 //TODO: Da cambiare il IDFRuolo

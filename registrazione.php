@@ -10,6 +10,13 @@
     <title>Registrazione</title>
 </head>
 <body>
+<?php
+session_start();
+if (isset($_SESSION['log'])) {
+    echo "<h3>" . $_SESSION['log'] . "</h3>";
+    unset($_SESSION['log']);
+}
+?>
 <form method="post" action="verificaRegistrazione.php" id="formBello">
     <div>
         <label>Nome e Cognome</label>
