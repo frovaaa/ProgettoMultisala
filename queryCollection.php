@@ -1,7 +1,19 @@
 <?php
-require_once "Models/modelUtente.php";
-require_once "Models/modelCinema.php";
 require_once "Models/modelAttore.php";
+require_once "Models/modelCinema.php";
+require_once "Models/modelEvento.php";
+require_once "Models/modelFilm.php";
+require_once "Models/modelFilmAttore.php";
+require_once "Models/modelFilmGenere.php";
+require_once "Models/modelGenere.php";
+require_once "Models/modelPosto.php";
+require_once "Models/modelPrenotazione.php";
+require_once "Models/modelProgrammazione.php";
+require_once "Models/modelRuolo.php";
+require_once "Models/modelSala.php";
+require_once "Models/modelTipoPosto.php";
+require_once "Models/modelUtente.php";
+require_once "Models/modelUtenteCinema.php";
 
 #region FUNZIONI UTENTE
 function getUtenteById($IDUtente): Utente
