@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-$userOrEmail = (isset($_POST['UsernameOrEmail'])) ? $_POST['UsernameOrEmail'] : "";
-$pass = (isset($_POST['Password'])) ? $_POST['Password'] : "";
-$isEmail = (strpos($userOrEmail, '@') != false) ? false : true;
+$userOrEmail = trim($_POST['usernameOrEmail']);
+$pass = trim($_POST['password']);
+$isEmail = ((strpos($userOrEmail, '@') != false));
 
 $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
@@ -12,10 +12,15 @@ $data = $connection->query($query);
 
 if ($data->num_rows > 0) {
     while ($riga = $data->fetch_assoc()) {
-        if ($userOrEmail == (($isEmail) ? $riga['Email'] : $riga['Username']) && password_verify($pass, $riga['Password'])) {
+        $controlloMail = strcmp($userOrEmail, (($isEmail) ? $riga['Email'] : $riga['Username'])) == 0;
+        $controlloPass = password_verify($pass, $riga['Password']);
+
+        if ($controlloMail && $controlloPass) {
+
             if (isset($_POST['rememberMe'])) {
                 setcookie("rememberMe", $riga['IDUtente'], strtotime("+1 week"));
             }
+
 
             $_SESSION['Username'] = $userOrEmail;
             $_SESSION['IDUtente'] = $riga['IDUtente'];

@@ -1,18 +1,21 @@
 <?php
 session_start();
 
-$pass = password_hash($_POST['Password'], PASSWORD_BCRYPT);
-$username = $_POST['Username'];
-$nome = $_POST['Nome'];
-$cognome = $_POST['Cognome'];
-$email = $_POST['Email'];
-$cellulare = $_POST['Cellulare'];
+$pass = password_hash($_POST['password'], PASSWORD_BCRYPT);
+$username = trim($_POST['username']);
+$nome = trim($_POST['nome']);
+$cognome = trim($_POST['cognome']);
+$email = trim($_POST['email']);
+$cellulare = trim($_POST['cellulare']);
 
 $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 //TODO: Da cambiare il IDFRuolo
 $query = "INSERT INTO Utente (IDFRuolo, Nome, Cognome, Username, Password, Email, Cellulare) VALUES (1, '$nome', '$cognome', '$username', '$pass', '$email', '$cellulare')";
 
+echo $query;
+
 $result = $connection->query($query);
+
 
 // definisco mittente e destinatario della mail
 $nome_mittente = "Cinema Multisala";
@@ -41,7 +44,9 @@ $mail_headers .= "Reply-To: " . $mail_mittente . "\r\n";
 // Content-type e charset (necessarie per i contenuti in HTML)
 $mail_headers .= "MIME-Version: 1.0\r\n";
 $mail_headers .= "Content-type: text/html; charset=iso-8859-1";
-mail($mail_destinatario, $mail_oggetto, $mail_corpo, $mail_headers);    //Mando la mail
+//mail($mail_destinatario, $mail_oggetto, $mail_corpo, $mail_headers);    //Mando la mail
 
 $_SESSION["log"] = "Registrazione avvenuta con successo!!";
+
 header("Location: login.php");
+exit();
