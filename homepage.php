@@ -22,11 +22,6 @@ if (isset($_SESSION['Utente'])) {
     $utente = $_SESSION['Utente'];
     echo "<h1>Benvenuto " . $utente->getUsername() . "</h1>";
 }
-
-$utenteTemp = $utente;
-$utenteTemp->setNome("Davide");
-
-echo (editUtente($utente->getIdUtente(), $utenteTemp));
 ?>
 
 </body>
