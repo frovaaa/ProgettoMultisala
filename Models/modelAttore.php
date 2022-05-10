@@ -5,7 +5,7 @@ class Attore {
   private $idAttore;
   private $nome;
   private $cognome;
-  private $dataDiNAscita;
+  private $dataDiNascita;
 
   public function getIdAttore() {
     return $this->idAttore;
@@ -31,12 +31,12 @@ class Attore {
     $this->cognome = $cognome;
   }
 
-  public function getDataDiNAscita() {
-    return $this->dataDiNAscita;
+  public function getDataDiNascita() {
+    return $this->dataDiNascita;
   }
 
-  public function setDataDiNAscita($dataDiNAscita) {
-    $this->dataDiNAscita = $dataDiNAscita;
+  public function setDataDiNascita($dataDiNascita) {
+    $this->dataDiNascita = $dataDiNascita;
   }
 
 }

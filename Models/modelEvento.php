@@ -2,14 +2,23 @@
 
 class Evento {
 
-  private $idEventi;
+  private $idEvento;
+  private $descrizione;
 
-  public function getIdEventi() {
-    return $this->idEventi;
+  public function getIdEvento() {
+    return $this->idEvento;
   }
 
-  public function setIdEventi($idEventi) {
-    $this->idEventi = $idEventi;
+  public function setIdEvento($idEvento) {
+    $this->idEvento = $idEvento;
+  }
+
+  public function getDescrizione() {
+    return $this->descrizione;
+  }
+
+  public function setDescrizione($descrizione) {
+    $this->descrizione = $descrizione;
   }
 
 }

@@ -5,7 +5,7 @@ class Sala {
   private $idSala;
   private $idfCinema;
   private $numSala;
-  private $posti;
+  private $postiMax;
 
   public function getIdSala() {
     return $this->idSala;
@@ -31,12 +31,12 @@ class Sala {
     $this->numSala = $numSala;
   }
 
-  public function getPosti() {
-    return $this->posti;
+  public function getPostiMax() {
+    return $this->postiMax;
   }
 
-  public function setPosti($posti) {
-    $this->posti = $posti;
+  public function setPostiMax($postiMax) {
+    $this->postiMax = $postiMax;
   }
 
 }
