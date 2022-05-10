@@ -184,7 +184,7 @@ function getFilmAttoreByFilm($IDFilm): FilmAttore
     $query = "SELECT * FROM FilmAttore WHERE IDFFilm=" . $IDFilm;
     $data = $connection->query($query);
 
-    $resultArray = new FilmAttore[];
+    $resultArray = new FilmAttore;
 
     while ($riga = $data->fetch_assoc()) {
         $filmAttore = new FilmAttore();
@@ -204,7 +204,7 @@ function getFilmAttoreByAttore($IDFAttore): FilmAttore
     $query = "SELECT * FROM FilmAttore WHERE IDFAttore=" . $IDFAttore;
     $data = $connection->query($query);
 
-    $resultArray = new FilmAttore[];
+    $resultArray = new FilmAttore;
 
     while ($riga = $data->fetch_assoc()) {
         $filmAttore = new FilmAttore();
@@ -246,7 +246,7 @@ function getFilmGenereByFilm($IDFilm): FilmGenere
     $query = "SELECT * FROM FilmGenere WHERE IDFFilm=" . $IDFilm;
     $data = $connection->query($query);
 
-    $resultArray = new FilmGenere[];
+    $resultArray = new FilmGenere;
 
     while ($riga = $data->fetch_assoc()) {
         $film = new FilmGenere();
@@ -266,7 +266,7 @@ function getFilmGenereByGenere($IDFGenere): FilmGenere
     $query = "SELECT * FROM FilmGenere WHERE IDFGenere=" . $IDFGenere;
     $data = $connection->query($query);
 
-    $resultArray = new FilmGenere[];
+    $resultArray = new FilmGenere;
 
     while ($riga = $data->fetch_assoc()) {
         $film = new FilmGenere();
@@ -538,7 +538,7 @@ function editSala($IDSala, $newSala): bool
 
 #endregion
 
-#region FUNZIONI TipoPosto
+#region FUNZIONI TIPOPOSTO
 function getTipoPostoById($IDTipoPosto): TipoPosto
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
@@ -587,11 +587,12 @@ function getUtenteById($IDUtente): Utente
 
     $utente = new Utente();
 
+    $utente->setIdUtente($data['IDUtente']);
     $utente->setIdfRuolo($data['IDFRuolo']);
     $utente->setNome($data['Nome']);
     $utente->setCognome($data['Cognome']);
     $utente->setUsername($data['Username']);
-    $utente->setPassword($data['Username']);
+    $utente->setPassword($data['Password']);
     $utente->setEmail($data['Email']);
     $utente->setCellulare($data['Cellulare']);
 
@@ -627,7 +628,7 @@ function getUtenteCinemaByUtente($IDUtente): UtenteCinema
     $query = "SELECT * FROM UtenteCinema WHERE IDFUtente=" . $IDUtente;
     $data = $connection->query($query);
 
-    $resultArray = new UtenteCinema[];
+    $resultArray = new UtenteCinema;
 
     while ($riga = $data->fetch_assoc()) {
         $utenteCinema = new UtenteCinema();
@@ -647,7 +648,7 @@ function getUtenteCinemaByCinema($IDFCinema): UtenteCinema
     $query = "SELECT * FROM UtenteCinema WHERE IDFCinema=" . $IDFCinema;
     $data = $connection->query($query);
 
-    $resultArray = new UtenteCinema[];
+    $resultArray = new UtenteCinema;
 
     while ($riga = $data->fetch_assoc()) {
         $utenteCinema = new UtenteCinema();
