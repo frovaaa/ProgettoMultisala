@@ -9,4 +9,7 @@ $nuovoFilm->setTitolo($titolo);
 $nuovoFilm->setTrama($trama);
 $nuovoFilm->setCopertina($copertina);
 
-insertFilm($nuovoFilm);
+$_SESSION["log"] = (insertFilm($nuovoFilm)) ? "Inserimento avvenuto con successo!!" : "Inserimento fallito :(";
+
+header(""); //TODO Inserisci header
+exit();
