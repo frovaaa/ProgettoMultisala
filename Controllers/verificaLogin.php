@@ -2,6 +2,12 @@
 require_once "../queryCollection.php";
 session_start();
 
+if(!isset($_POST['usernameOrEmail']) || !isset($_POST['password'])) {
+    $_SESSION['log'] = "Credenziali non inserite!";
+    header("Location:../login.php");
+    exit();
+}
+
 $userOrEmail = $_POST['usernameOrEmail'];
 $pass = $_POST['password'];
 $isEmail = ((strpos($userOrEmail, '@') != false));

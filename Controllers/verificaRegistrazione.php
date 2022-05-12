@@ -2,6 +2,8 @@
 require_once "../queryCollection.php";
 session_start();
 
+
+
 $newUtente = new Utente();
 
 $newUtente->setIdfRuolo(1);
