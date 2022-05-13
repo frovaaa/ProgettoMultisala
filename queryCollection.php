@@ -399,6 +399,26 @@ function getPrenotazioneById($IDPrenotazione): Prenotazione
     return $prenotazione;
 }
 
+function getPrenotazioniByIdUtente($IDPrenotazione, $IDFUtente): Prenotazione
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+
+    $query = "SELECT * FROM Prenotazione WHERE IDPrenotazione=" . $IDPrenotazione . " AND IDFUtente=" . $IDFUtente;
+    $data = $connection->query($query);
+
+    $prenotazioniArray = new Prenotazione;
+    while($riga = $data->fetch_assoc()){
+        $prenotazione = new Prenotazione();
+        $prenotazione->setIdPrenotazione($riga['IDPrenotazione']);
+        $prenotazione->setIdfUtente($IDFUtente);
+        $prenotazione->setIdfPosto($riga['IDFPosto']);
+
+        $prenotazioniArray[] = $prenotazione;
+    }
+
+    return $prenotazioniArray;
+}
+
 function insertPrenotazione(Prenotazione $prenotazione): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
