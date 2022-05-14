@@ -399,11 +399,11 @@ function getPrenotazioneById($IDPrenotazione): Prenotazione
     return $prenotazione;
 }
 
-function getPrenotazioniByIdUtente($IDPrenotazione, $IDFUtente): Prenotazione
+function getPrenotazioniByIdUtente($IDFUtente): Prenotazione
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
-    $query = "SELECT * FROM Prenotazione WHERE IDPrenotazione=" . $IDPrenotazione . " AND IDFUtente=" . $IDFUtente;
+    $query = "SELECT * FROM Prenotazione WHERE IDFUtente=" . $IDFUtente;
     $data = $connection->query($query);
 
     $prenotazioniArray = new Prenotazione;

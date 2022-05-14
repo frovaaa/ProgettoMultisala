@@ -11,9 +11,13 @@
 <?php
 require_once "../queryCollection.php";
 session_start();
-
+$listaPrenotazioni = getPrenotazioniByIdUtente($_SESSION['Utente']->getIdUtente());
 
 ?>
+
+<table class="table table-striped">
+
+</table>
 
 </body>
 </html>
