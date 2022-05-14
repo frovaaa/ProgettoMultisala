@@ -177,14 +177,14 @@ function editFilm($IDFilm, $newFilm): bool
 #endregion
 
 #region FUNZIONI FILM_ATTORE
-function getFilmAttoreByFilm($IDFilm): FilmAttore
+function getFilmAttoreByFilm($IDFilm): array
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
     $query = "SELECT * FROM FilmAttore WHERE IDFFilm=" . $IDFilm;
     $data = $connection->query($query);
 
-    $resultArray = new FilmAttore;
+    $resultArray = [];
 
     while ($riga = $data->fetch_assoc()) {
         $filmAttore = new FilmAttore();
@@ -197,14 +197,14 @@ function getFilmAttoreByFilm($IDFilm): FilmAttore
     return $resultArray;
 }
 
-function getFilmAttoreByAttore($IDFAttore): FilmAttore
+function getFilmAttoreByAttore($IDFAttore): array
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
     $query = "SELECT * FROM FilmAttore WHERE IDFAttore=" . $IDFAttore;
     $data = $connection->query($query);
 
-    $resultArray = new FilmAttore;
+    $resultArray = [];
 
     while ($riga = $data->fetch_assoc()) {
         $filmAttore = new FilmAttore();
@@ -239,14 +239,14 @@ function editFilmAttore($idFilm, $idfAttore, $newFilmAttore): bool
 #endregion
 
 #region FUNZIONI FILM_GENERE
-function getFilmGenereByFilm($IDFilm): FilmGenere
+function getFilmGenereByFilm($IDFilm): array
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
     $query = "SELECT * FROM FilmGenere WHERE IDFFilm=" . $IDFilm;
     $data = $connection->query($query);
 
-    $resultArray = new FilmGenere;
+    $resultArray = [];
 
     while ($riga = $data->fetch_assoc()) {
         $film = new FilmGenere();
@@ -259,14 +259,14 @@ function getFilmGenereByFilm($IDFilm): FilmGenere
     return $resultArray;
 }
 
-function getFilmGenereByGenere($IDFGenere): FilmGenere
+function getFilmGenereByGenere($IDFGenere): array
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
     $query = "SELECT * FROM FilmGenere WHERE IDFGenere=" . $IDFGenere;
     $data = $connection->query($query);
 
-    $resultArray = new FilmGenere;
+    $resultArray = [];
 
     while ($riga = $data->fetch_assoc()) {
         $film = new FilmGenere();
@@ -399,15 +399,15 @@ function getPrenotazioneById($IDPrenotazione): Prenotazione
     return $prenotazione;
 }
 
-function getPrenotazioniByIdUtente($IDFUtente): Prenotazione
+function getPrenotazioniByIdUtente($IDFUtente): array
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
     $query = "SELECT * FROM Prenotazione WHERE IDFUtente=" . $IDFUtente;
     $data = $connection->query($query);
 
-    $prenotazioniArray = new Prenotazione;
-    while($riga = $data->fetch_assoc()){
+    $prenotazioniArray = [];
+    while ($riga = $data->fetch_assoc()) {
         $prenotazione = new Prenotazione();
         $prenotazione->setIdPrenotazione($riga['IDPrenotazione']);
         $prenotazione->setIdfUtente($IDFUtente);
@@ -641,14 +641,14 @@ function editUtente($IDUtente, $newUtente): bool
 #endregion
 
 #region FUNZIONI UTENTE_CINEMA
-function getUtenteCinemaByUtente($IDUtente): UtenteCinema
+function getUtenteCinemaByUtente($IDUtente): array
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
     $query = "SELECT * FROM UtenteCinema WHERE IDFUtente=" . $IDUtente;
     $data = $connection->query($query);
 
-    $resultArray = new UtenteCinema;
+    $resultArray = [];
 
     while ($riga = $data->fetch_assoc()) {
         $utenteCinema = new UtenteCinema();
@@ -661,14 +661,14 @@ function getUtenteCinemaByUtente($IDUtente): UtenteCinema
     return $resultArray;
 }
 
-function getUtenteCinemaByCinema($IDFCinema): UtenteCinema
+function getUtenteCinemaByCinema($IDFCinema): array
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
     $query = "SELECT * FROM UtenteCinema WHERE IDFCinema=" . $IDFCinema;
     $data = $connection->query($query);
 
-    $resultArray = new UtenteCinema;
+    $resultArray = [];
 
     while ($riga = $data->fetch_assoc()) {
         $utenteCinema = new UtenteCinema();

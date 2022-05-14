@@ -9,14 +9,30 @@
 </head>
 <body>
 <?php
-require_once "../queryCollection.php";
+include "queryCollection.php";
 session_start();
 $listaPrenotazioni = getPrenotazioniByIdUtente($_SESSION['Utente']->getIdUtente());
-
 ?>
 
 <table class="table table-striped">
-
+    <thead>
+    <tr>
+        <th>IDPrenotazione</th>
+        <th>IDFPosto</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php
+    foreach ($listaPrenotazioni as $prenotazione) {
+        $idPrenotazione = $prenotazione->getIdPrenotazione();
+        $idfPosto = $prenotazione->getIdfPosto();
+        echo "<tr>";
+        echo "<td>$idPrenotazione</td>";
+        echo "<td>$idfPosto</td>";
+        echo "</tr>";
+    }
+    ?>
+    </tbody>
 </table>
 
 </body>
