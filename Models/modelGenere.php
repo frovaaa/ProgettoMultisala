@@ -4,15 +4,14 @@ class Genere {
 
   private $idGenere;
   private $nome;
-  private $descrizione;
   private $limitazioni;
 
-  public function getIdFilmGenere() {
-    return $this->idFilmGenere;
+  public function getIdGenere() {
+    return $this->idGenere;
   }
 
-  public function setIdFilmGenere($idGenere) {
-    $this->idFilmGenere = $idGenere;
+  public function setIdGenere($idGenere) {
+    $this->idGenere = $idGenere;
   }
 
   public function getNome() {
@@ -21,14 +20,6 @@ class Genere {
 
   public function setNome($nome) {
     $this->nome = $nome;
-  }
-
-  public function getDescrizione() {
-    return $this->descrizione;
-  }
-
-  public function setDescrizione($descrizione) {
-    $this->descrizione = $descrizione;
   }
 
   public function getLimitazioni() {

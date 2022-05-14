@@ -3,7 +3,7 @@
 class Programmazione {
 
   private $idProgrammazione;
-  private $idfEventi;
+  private $idfEvento;
   private $idfFilm;
   private $data;
 
@@ -15,12 +15,12 @@ class Programmazione {
     $this->idProgrammazione = $idProgrammazione;
   }
 
-  public function getIdfEventi() {
-    return $this->idfEventi;
+  public function getIdfEvento() {
+    return $this->idfEvento;
   }
 
-  public function setIdfEventi($idfEventi) {
-    $this->idfEventi = $idfEventi;
+  public function setIdfEvento($idfEvento) {
+    $this->idfEvento = $idfEvento;
   }
 
   public function getIdfFilm() {

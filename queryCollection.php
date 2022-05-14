@@ -155,6 +155,27 @@ function getFilmById($IDFilm): Film
     return $film;
 }
 
+function getFilms(): array
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+
+    $query = "SELECT * FROM Film";
+    $data = $connection->query($query);
+
+    $filmArray = [];
+    while ($riga = $data->fetch_assoc()) {
+        $film = new Film();
+        $film->setIdFilm($riga['IDFilm']);
+        $film->setTitolo($riga['Titolo']);
+        $film->setTrama($riga['Trama']);
+        $film->setCopertina($riga['Copertina']);
+
+        $filmArray[] = $film;
+    }
+
+    return $filmArray;
+}
+
 function insertFilm(Film $film): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
@@ -311,9 +332,8 @@ function getGenereById($IDGenere): Genere
 
     $genere = new Genere();
 
-    $genere->setIdFilmGenere($data['IDGenere']);
+    $genere->setIdGenere($data['IDGenere']);
     $genere->setNome($data['Nome']);
-    $genere->setDescrizione($data['Descrizione']);
     $genere->setLimitazioni($data['Limitazioni']);
 
     return $genere;
@@ -322,8 +342,8 @@ function getGenereById($IDGenere): Genere
 function insertGenere(Genere $genere): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
-    $query = "INSERT INTO Genere (Nome, Descrizione, Limitazioni)
-    VALUES ('" . $genere->getNome() . "', '" . $genere->getDescrizione() . "', " . $genere->getLimitazioni() . ");";
+    $query = "INSERT INTO Genere (Nome, Limitazioni)
+    VALUES ('" . $genere->getNome() . "', " . $genere->getLimitazioni() . ");";
 
     return $connection->query($query);
 }
@@ -332,7 +352,7 @@ function editGenere($idGenere, $newGenere): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
     $query = "UPDATE Genere 
-    SET Nome='" . $newGenere->getNome() . "', Descrizione='" . $newGenere->getDescrizione() . "', Limitazioni=" . $newGenere->getLimitazioni() . "
+    SET Nome='" . $newGenere->getNome() . "', Limitazioni=" . $newGenere->getLimitazioni() . "
     WHERE IDGenere=$idGenere;";
 
     return $connection->query($query);
@@ -456,18 +476,40 @@ function getProgrammazioneById($IDProgrammazione): Programmazione
     $programmazione = new Programmazione();
 
     $programmazione->setIdProgrammazione($data['IDProgrammazione']);
-    $programmazione->setIdfEventi($data['IDFEventi']);
+    $programmazione->setIdfEvento($data['IDFEvento']);
     $programmazione->setIdfFilm($data['IDFFilm']);
     $programmazione->setData($data['Data']);
 
     return $programmazione;
 }
 
+function getProgrammazioni(): array
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+
+    $query = "SELECT * FROM Programmazione";
+    $data = $connection->query($query);
+
+    $programmazioniArray = [];
+    while ($riga = $data->fetch_assoc()) {
+        $programmazione = new Programmazione();
+
+        $programmazione->setIdProgrammazione($riga['IDProgrammazione']);
+        $programmazione->setIdfEvento($riga['IDFEvento']);
+        $programmazione->setIdfFilm($riga['IDFFilm']);
+        $programmazione->setData($riga['Data']);
+
+        $programmazioniArray[] = $programmazione;
+    }
+
+    return $programmazioniArray;
+}
+
 function insertProgrammazione(Programmazione $programmazione): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
-    $query = "INSERT INTO Programmazione (IDFEventi, IDFFilm, Data)
-    VALUES (" . $programmazione->getIdfEventi() . ", " . $programmazione->getIdfFilm() . ", '" . $programmazione->getData() . "');";
+    $query = "INSERT INTO Programmazione (IDFEvento, IDFFilm, Data)
+    VALUES (" . $programmazione->getIdfEvento() . ", " . $programmazione->getIdfFilm() . ", '" . $programmazione->getData() . "');";
 
     return $connection->query($query);
 }
@@ -476,7 +518,7 @@ function editProgrammazione($IDProgrammazione, $newProgrammazione): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
     $query = "UPDATE Programmazione 
-    SET IDFEventi=" . $newProgrammazione->getIdfEventi() . ", IDFFilm=" . $newProgrammazione->getIdfFilm() . ", Data='" . $newProgrammazione->getData() . "'
+    SET IDFEvento=" . $newProgrammazione->getIdfEvento() . ", IDFFilm=" . $newProgrammazione->getIdfFilm() . ", Data='" . $newProgrammazione->getData() . "'
     WHERE IDProgrammazione=$IDProgrammazione;";
 
     return $connection->query($query);
