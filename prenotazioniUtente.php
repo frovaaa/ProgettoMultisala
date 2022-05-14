@@ -17,23 +17,25 @@ $listaPrenotazioni = getPrenotazioniByIdUtente($_SESSION['Utente']->getIdUtente(
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>IDPrenotazione</th>
-        <th>IDFPosto</th>
+        <th>N.Prenotazione</th>
+        <th>Posto</th>
     </tr>
     </thead>
     <tbody>
     <?php
     foreach ($listaPrenotazioni as $prenotazione) {
-        $idPrenotazione = $prenotazione->getIdPrenotazione();
-        $idfPosto = $prenotazione->getIdfPosto();
+        $codicePrenotazione = $prenotazione->getCodice();
+        $posto = getPostoById($prenotazione->getIdfPosto());
+        $posPosto = $posto->getRiga().'-'.$posto->getColonna();
         echo "<tr>";
-        echo "<td>$idPrenotazione</td>";
-        echo "<td>$idfPosto</td>";
+        echo "<td>$codicePrenotazione</td>";
+        echo "<td>$posPosto</td>";
         echo "</tr>";
     }
     ?>
     </tbody>
 </table>
+
 
 </body>
 </html>

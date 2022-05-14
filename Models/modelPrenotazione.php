@@ -5,6 +5,8 @@ class Prenotazione {
   private $idPrenotazione;
   private $idfUtente;
   private $idfPosto;
+  private $idfProgrammazione;
+  private $codice;
 
   public function getIdPrenotazione() {
     return $this->idPrenotazione;
@@ -28,6 +30,22 @@ class Prenotazione {
 
   public function setIdfPosto($idfPosto) {
     $this->idfPosto = $idfPosto;
+  }
+
+  public function getIdfProgrammazione() {
+    return $this->idfProgrammazione;
+  }
+
+  public function setIdfProgrammazione($idfProgrammazione) {
+    $this->idfProgrammazione = $idfProgrammazione;
+  }
+
+  public function getCodice() {
+    return $this->codice;
+  }
+
+  public function setCodice($codice) {
+    $this->codice = $codice;
   }
 
 }

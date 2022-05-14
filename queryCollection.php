@@ -395,6 +395,8 @@ function getPrenotazioneById($IDPrenotazione): Prenotazione
     $prenotazione->setIdPrenotazione($data['IDPrenotazione']);
     $prenotazione->setIdfUtente($data['IDFUtente']);
     $prenotazione->setIdfPosto($data['IDFPosto']);
+    $prenotazione->setIdfProgrammazione($data['IDFProgrammazione']);
+    $prenotazione->setCodice($data['Codice']);
 
     return $prenotazione;
 }
@@ -412,6 +414,8 @@ function getPrenotazioniByIdUtente($IDFUtente): array
         $prenotazione->setIdPrenotazione($riga['IDPrenotazione']);
         $prenotazione->setIdfUtente($IDFUtente);
         $prenotazione->setIdfPosto($riga['IDFPosto']);
+        $prenotazione->setIdfProgrammazione($riga['IDFProgrammazione']);
+        $prenotazione->setCodice($riga['Codice']);
 
         $prenotazioniArray[] = $prenotazione;
     }
@@ -422,8 +426,8 @@ function getPrenotazioniByIdUtente($IDFUtente): array
 function insertPrenotazione(Prenotazione $prenotazione): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
-    $query = "INSERT INTO Prenotazione (IDFUtente, IDFPosto)
-    VALUES (" . $prenotazione->getIdfUtente() . ", " . $prenotazione->getIdfPosto() . ");";
+    $query = "INSERT INTO Prenotazione (IDFUtente, IDFPosto, IDFProgrammazione, Codice)
+    VALUES (" . $prenotazione->getIdfUtente() . ", " . $prenotazione->getIdfPosto() . ", " . $prenotazione->getIdfProgrammazione() . ", " . $prenotazione->getCodice() . ");";
 
     return $connection->query($query);
 }
@@ -432,7 +436,7 @@ function editPrenotazione($IDPrenotazione, $newPrenotazione): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
     $query = "UPDATE Prenotazione 
-    SET IDFUtente=" . $newPrenotazione->getIdfUtente() . ", IDFPosto=" . $newPrenotazione->getIdfPosto() . "
+    SET IDFUtente=" . $newPrenotazione->getIdfUtente() . ", IDFPosto=" . $newPrenotazione->getIdfPosto() . ", IDFProgrammazione=" . $newPrenotazione->getIdfProgrammazione() . ", Codice=" . $newPrenotazione->getCodice() . "
     WHERE IDPrenotazione=$IDPrenotazione;";
 
     return $connection->query($query);
