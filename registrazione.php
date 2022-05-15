@@ -22,34 +22,35 @@ if (isset($_SESSION['log'])) {
 ?>
 
 <div id="formWrapper">
-    <form method="post" action="Controllers/verificaRegistrazione.php" id="formBello">
-        <div>
-            <label>Nome e Cognome</label>
-            <input name="nome" type="text" required>
-            <input name="cognome" type="text" required>
-        </div>
-        <div>
-            <label>Email</label>
-            <input name="email" type="email" required>
-        </div>
-        <div>
-            <label>Username</label>
-            <input name="username" type="text" required>
-        </div>
-        <div>
-            <label>Password</label>
-            <input id="p1" name="password" type="password" required>
-            <input id="p2" type="password" required>
-        </div>
-        <div>
-            <label>Cellulare</label>
-            <input name="cellulare" type="text" required>
-        </div>
+    <div>
+        <form method="post" action="Controllers/verificaRegistrazione.php" id="formBello">
+            <div class="double inputGroup">
+                <input name="nome" type="text" required placeholder="Nome">
+                <input name="cognome" type="text" required placeholder="Cognome" style="margin-left: 5%">
+            </div>
+            <div class="single inputGroup">
+                <input name="email" type="email" required placeholder="Email">
+            </div>
+            <div class="single inputGroup">
+                <input name="username" type="text" required placeholder="Username">
+            </div>
+            <div class="double inputGroup">
+                <input id="p1" name="password" type="password" required placeholder="Password">
+                <input id="p2" type="password" required placeholder="Conferma Password" style="margin-left: 5%">
+            </div>
+            <div class="single inputGroup">
+                <input name="cellulare" type="text" required placeholder="Cellulare">
+            </div>
 
-        <div>
-            <button type="submit" id="btn">Registrati</button>
-        </div>
-    </form>
+            <div id="btnWrapper">
+                <button type="submit" id="btn">Registrati</button>
+            </div>
+
+            <div id="bottom">
+
+            </div>
+        </form>
+    </div>
 </div>
 </body>
 

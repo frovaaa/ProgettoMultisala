@@ -4,7 +4,39 @@
 }
 
 #formWrapper{
-    margin-left: 50%;
-    width: 80%;
+    margin-left: 50%; width: 80%;
     transform: translate(-50%);
 }
+#formWrapper div{
+
+}
+#formWrapper input{
+    border: none;
+    background-color: rgba(0, 0, 0, 5%);
+    border-radius: 5px;
+}
+#formWrapper input::placeholder{
+    padding-left: 4%;
+}
+
+.single input { width: 100%; }
+.double input{
+    width: 45%;
+}
+.inputGroup{
+    margin-left: 50%; width: 80%;
+    transform: translate(-50%);
+}
+
+#btnWrapper{
+    width: 80%; height: 22px;
+
+    margin-left: 50%;
+    transform: translate(-50%);
+}
+#btnWrapper button{
+    margin-left: 50%; width: 80%;
+    transform: translate(-50%);
+}
+
+input{ height: 22px; }
