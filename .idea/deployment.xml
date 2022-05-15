@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="Bartolucci (project level)">
+  <component name="PublishConfigData" autoUpload="Always" serverName="ServerBrutto" showAutoUploadSettingsWarning="false">
     <serverData>
-      <paths name="Bartolucci (project level)">
+      <paths name="ServerBrutto">
         <serverdata>
           <mappings>
             <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+<<<<<<< Updated upstream
           </mappings>
         </serverdata>
       </paths>
@@ -34,6 +35,8 @@
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
+=======
+>>>>>>> Stashed changes
           </mappings>
         </serverdata>
       </paths>

@@ -19,27 +19,11 @@ if (isset($_SESSION['Utente'])) {
     echo "<h1>Benvenuto " . $utente->getUsername() . "</h1>";
 }
 ?>
-    <header>
-        <nav>
-            <div>
-                <div id="logo">
-                    <img src="Images/logo.png">
-                </div>
-
-                <div id="list">
-                    <ul>
-                        <li><a href="login.php">Login</a></li>
-                        <li><a href="registrazione.php">Registrati</a></li>
-                        <li><a href="#">Ciao</a></li>
-                        <li><a href="#">Ciao</a></li>
-                        <li><a href="#">Ciao</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+<?php include "navBar.php" ?>
 <main>
+    <div>
 
+    </div>
 </main>
 </body>
 </html>
