@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="SshConfigs">
-    <configs>
-      <sshConfig authType="PASSWORD" host="database.paolopocaterra.eu" id="4b961a7b-cc6b-494b-bf3c-ba3605c7d08d" port="22" nameFormat="DESCRIPTIVE" username="upload" useOpenSSHConfig="true" />
-    </configs>
-  </component>
-</project>
