@@ -7,6 +7,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" type="text/css" href="CSS/registrazione.css">
+
     <title>Registrazione</title>
 </head>
 <body>
@@ -17,35 +20,39 @@ if (isset($_SESSION['log'])) {
     unset($_SESSION['log']);
 }
 ?>
-<form method="post" action="Controllers/verificaRegistrazione.php" id="formBello">
-    <div>
-        <label>Nome e Cognome</label>
-        <input name="nome" type="text" required>
-        <input name="cognome" type="text" required>
-    </div>
-    <div>
-        <label>Email</label>
-        <input name="email" type="email" required>
-    </div>
-    <div>
-        <label>Username</label>
-        <input name="username" type="text" required>
-    </div>
-    <div>
-        <label>Password</label>
-        <input id="p1" name="password" type="password" required>
-        <input id="p2" type="password" required>
-    </div>
-    <div>
-        <label>Cellulare</label>
-        <input name="cellulare" type="text" required>
-    </div>
 
-    <div>
-        <button type="submit" id="btn">Registrati</button>
-    </div>
-</form>
+<div id="formWrapper">
+    <form method="post" action="Controllers/verificaRegistrazione.php" id="formBello">
+        <div>
+            <label>Nome e Cognome</label>
+            <input name="nome" type="text" required>
+            <input name="cognome" type="text" required>
+        </div>
+        <div>
+            <label>Email</label>
+            <input name="email" type="email" required>
+        </div>
+        <div>
+            <label>Username</label>
+            <input name="username" type="text" required>
+        </div>
+        <div>
+            <label>Password</label>
+            <input id="p1" name="password" type="password" required>
+            <input id="p2" type="password" required>
+        </div>
+        <div>
+            <label>Cellulare</label>
+            <input name="cellulare" type="text" required>
+        </div>
+
+        <div>
+            <button type="submit" id="btn">Registrati</button>
+        </div>
+    </form>
+</div>
 </body>
+
 <script>
     let uguali = false;
 

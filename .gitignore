@@ -1,4 +1,11 @@
+<<<<<<< Updated upstream
 .idea
 /.idea
 *.idea
 *.xml
+=======
+.idea/
+>>>>>>> Stashed changes
+.idea/deployment.xml
+.idea/sshConfigs.xml
+.idea/webServers.xml
