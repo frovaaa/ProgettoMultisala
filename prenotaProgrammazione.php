@@ -26,7 +26,7 @@ $programmazione = null;
 if (isset($_POST['IDProgrammazione'])) {
     $programmazione = getProgrammazioneById($_POST['IDProgrammazione']);
 } else if (isset($_GET['IDProgrammazione'])) {
-    $programmazione = getProgrammazioneById($_POST['IDProgrammazione']);
+    $programmazione = getProgrammazioneById($_GET['IDProgrammazione']);
 } else {
     $_SESSION['log'] = "Programmazione non trovata";
     header("Location: listaFilm.php");

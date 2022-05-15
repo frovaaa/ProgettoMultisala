@@ -20,6 +20,12 @@ foreach ($_POST as $key => $value) {
     }
 }
 
+if (count($postiSelezionati) == 0) {
+    $_SESSION['log'] = "Errore: non hai selezionato nessun posto";
+    header("Location: ../prenotaProgrammazione.php?IDProgrammazione=" . $_POST['IDProgrammazione']);
+    exit();
+}
+
 $programmazione = getProgrammazioneById($_POST['IDProgrammazione']);
 
 //TODO: Pagina di acquisto
@@ -39,7 +45,8 @@ $_SESSION['log'] = "Prenotazione effettuata con successo";
 header("Location: ../listaFilm.php");
 exit();
 
-function generateRandomString($length) {
+function generateRandomString($length)
+{
     $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
     $randomString = '';

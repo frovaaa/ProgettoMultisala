@@ -40,9 +40,12 @@ $arrayFilm = getFilms();
                                 <h6 class="card-title">Genere: <?php
                                     $generiFilm = getFilmGenereByFilm($film->getIdFilm());
                                     //Foreach loop echo genere of generiFilm
+                                    $stringaGeneri = "";
                                     foreach ($generiFilm as $genere) {
-                                        echo getGenereById($genere->getIdfGenere())->getNome() . " / ";
+                                        $stringaGeneri .= getGenereById($genere->getIdfGenere())->getNome() . " / ";
                                     }
+                                    $stringaGeneri = substr($stringaGeneri, 0, -3);
+                                    echo $stringaGeneri;
                                     ?></h6>
                                 <p class="card-text"><?php echo $film->getTrama() ?></p>
                             </div>
