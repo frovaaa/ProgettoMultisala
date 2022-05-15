@@ -21,38 +21,92 @@ $arrayFilm = getFilms();
 ?>
 
 <div class="container mt-3">
-    <div class="row">
-        <?php
-        //Foreachloop with arrayFilm
-        foreach ($arrayFilm as $film) {
-            $copertina = $film->getCopertina();
-            ?>
-            <div class="card m-3" style="max-width: 540px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="<?php echo "$copertina" ?>" class="img-fluid rounded-start"
-                             alt="Copertina non disponibile">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo $film->getTitolo() ?></h5>
-                            <h6 class="card-title">Genere: <?php
-                                $generiFilm = getFilmGenereByFilm($film->getIdFilm());
-                                //Foreach loop echo genere of generiFilm
-                                foreach ($generiFilm as $genere) {
-                                    echo getGenereById($genere->getIdfGenere())->getNome() . " / ";
-                                }
-                                ?></h6>
-                            <p class="card-text"><?php echo $film->getTrama() ?></p>
-                            <a href="#" class="btn btn-primary">Scheda film</a>
+    <?php
+    //Foreachloop with arrayFilm
+    foreach ($arrayFilm as $film) {
+        $copertina = $film->getCopertina();
+        ?>
+        <div class="row">
+            <div class="col">
+                <div class="card m-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="<?php echo "$copertina" ?>" class="img-fluid rounded-start"
+                                 alt="Copertina non disponibile">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo $film->getTitolo() ?></h5>
+                                <h6 class="card-title">Genere: <?php
+                                    $generiFilm = getFilmGenereByFilm($film->getIdFilm());
+                                    //Foreach loop echo genere of generiFilm
+                                    foreach ($generiFilm as $genere) {
+                                        echo getGenereById($genere->getIdfGenere())->getNome() . " / ";
+                                    }
+                                    ?></h6>
+                                <p class="card-text"><?php echo $film->getTrama() ?></p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <?php
-        }
-        ?>
-    </div>
+            <!--Tabella date disponibili-->
+            <div class="col mt-3">
+                <h5 class="card-title">Date disponibili</h5>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Giorno</th>
+                        <th scope="col">Ora</th>
+                        <th scope="col">Prenota</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    //Get all programmazioni of film
+                    $programmazioniFilm = getProgrammazioniFilmByFilm($film->getIdFilm());
+                    //Foreach loop with programmazioniFilm
+                    foreach ($programmazioniFilm as $programmazione) {
+                        //Get datetime from string
+                        $data = new DateTime($programmazione->getData());
+                        //If datetime is greater than now
+                        if ($data > new DateTime()) {
+                            //If prenotazioni by programmazione > sala postiMax
+                            if (count(getPrenotazioniByProgrammazione($programmazione->getIdProgrammazione())) > getSalaById($programmazione->getIdfSala())->getPostiMax()) {
+                                ?>
+                                <tr>
+                                    <td><?php echo $data->format('d/m/Y') ?></td>
+                                    <td><?php echo $data->format('H:i') ?></td>
+                                    <td>
+                                        <button class="btn btn-danger" disabled>Prenotazione non disponibile</button>
+                                    </td>
+                                </tr>
+                                <?php
+                            } else {
+                                ?>
+                                <tr>
+                                    <td><?php echo $data->format('d/m/Y') ?></td>
+                                    <td><?php echo $data->format('H:i') ?></td>
+                                    <td>
+                                        <form action="prenotaProgrammazione.php" method="post">
+                                            <input type="hidden" name="Programmazione"
+                                                   value="<?php echo $programmazione->getIdProgrammazione() ?>">
+                                            <button class="btn btn-success">Prenota</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                    }
+                    ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <?php
+    }
+    ?>
 </div>
 
 </body>

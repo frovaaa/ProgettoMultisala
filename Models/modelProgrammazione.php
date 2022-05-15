@@ -5,6 +5,7 @@ class Programmazione {
   private $idProgrammazione;
   private $idfEvento;
   private $idfFilm;
+  private $idfSala;
   private $data;
 
   public function getIdProgrammazione() {
@@ -29,6 +30,14 @@ class Programmazione {
 
   public function setIdfFilm($idfFilm) {
     $this->idfFilm = $idfFilm;
+  }
+
+  public function getIdfSala() {
+    return $this->idfSala;
+  }
+
+  public function setIdfSala($idfSala) {
+    $this->idfSala = $idfSala;
   }
 
   public function getData() {

@@ -380,6 +380,74 @@ function getPostoById($IDPosto): Posto
     return $posto;
 }
 
+//Add n posti up to Sala postimax
+function insertPosti($idfSala, $nPosti, $nMaxColonna): bool
+{
+    //get last posto with idfSala
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+    $query = "SELECT * FROM Posto WHERE IDFSala=$idfSala ORDER BY IDPosto DESC LIMIT 1";
+    $data = $connection->query($query);
+    $data = $data->fetch_assoc();
+
+    $riga = "A";
+    $colonna = 1;
+    if ($data != null) {
+        $rigaOld = $data['Riga'];
+        $colonnaOld = $data['Colonna'];
+        if ($colonnaOld < $nMaxColonna) {
+            $colonna = ++$colonnaOld;
+            $riga = $rigaOld;
+        } else {
+            $riga = ++$rigaOld;
+        }
+    }
+
+    if ($nPosti == 1) {
+        $query = "INSERT INTO Posto (IDFTipoPosto, IDFSala, Riga, Colonna)
+        VALUES (1, $idfSala, '$riga', '$colonna');";
+    } else {
+        $query = "INSERT INTO Posto (IDFTipoPosto, IDFSala, Riga, Colonna)
+        VALUES (1, $idfSala, '$riga', '$colonna')";
+
+        for ($i = 1; $i < $nPosti; $i++) {
+            if ($colonna == $nMaxColonna) {
+                $riga++;
+                $colonna = 1;
+            } else {
+                $colonna++;
+            }
+            $query .= ", (1, $idfSala, '$riga', '$colonna')";
+        }
+        $query .= ";";
+
+    }
+    return $connection->query($query);
+}
+
+function getPostiBySala($IDFSala): array
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+
+    $query = "SELECT * FROM Posto WHERE IDFSala=" . $IDFSala;
+    $data = $connection->query($query);
+
+    $resultArray = [];
+
+    while ($riga = $data->fetch_assoc()) {
+        $posto = new Posto();
+
+        $posto->setIdPosto($riga['IDPosto']);
+        $posto->setIdfTipoPosto($riga['IDFTipoPosto']);
+        $posto->setIdfSala($riga['IDFSala']);
+        $posto->setRiga($riga['Riga']);
+        $posto->setColonna($riga['Colonna']);
+
+        $resultArray[] = $posto;
+    }
+
+    return $resultArray;
+}
+
 function insertPosto(Posto $posto): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
@@ -397,6 +465,18 @@ function editPosto($IDPosto, $newPosto): bool
     WHERE IDPosto=$IDPosto;";
 
     return $connection->query($query);
+}
+
+function isPostoOccupato($IDPosto, $IDProgrammazione): bool
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+
+    $query = "SELECT * FROM Prenotazione WHERE IDFPosto=" . $IDPosto . " AND IDFProgrammazione=" . $IDProgrammazione;
+    $data = $connection->query($query);
+    $data = $data->fetch_all();
+
+    if (!$data) return false;
+    else return true;
 }
 
 #endregion
@@ -443,6 +523,28 @@ function getPrenotazioniByIdUtente($IDFUtente): array
     return $prenotazioniArray;
 }
 
+function getPrenotazioniByProgrammazione($IDFProgrammazione): array
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+
+    $query = "SELECT * FROM Prenotazione WHERE IDFProgrammazione=" . $IDFProgrammazione;
+    $data = $connection->query($query);
+
+    $prenotazioniArray = [];
+    while ($riga = $data->fetch_assoc()) {
+        $prenotazione = new Prenotazione();
+        $prenotazione->setIdPrenotazione($riga['IDPrenotazione']);
+        $prenotazione->setIdfUtente($riga['IDFUtente']);
+        $prenotazione->setIdfPosto($riga['IDFPosto']);
+        $prenotazione->setIdfProgrammazione($IDFProgrammazione);
+        $prenotazione->setCodice($riga['Codice']);
+
+        $prenotazioniArray[] = $prenotazione;
+    }
+
+    return $prenotazioniArray;
+}
+
 function insertPrenotazione(Prenotazione $prenotazione): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
@@ -465,6 +567,27 @@ function editPrenotazione($IDPrenotazione, $newPrenotazione): bool
 #endregion
 
 #region FUNZIONI PROGRAMMAZIONE
+function getProgrammazioniFilmByFilm($IDFFilm): array
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+
+    $query = "SELECT * FROM Programmazione WHERE IDFFilm=" . $IDFFilm;
+    $data = $connection->query($query);
+
+    $programmazioniArray = [];
+    while ($riga = $data->fetch_assoc()) {
+        $programmazione = new Programmazione();
+        $programmazione->setIdProgrammazione($riga['IDProgrammazione']);
+        $programmazione->setIdfFilm($IDFFilm);
+        $programmazione->setIdfSala($riga['IDFSala']);
+        $programmazione->setData($riga['Data']);
+
+        $programmazioniArray[] = $programmazione;
+    }
+
+    return $programmazioniArray;
+}
+
 function getProgrammazioneById($IDProgrammazione): Programmazione
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
@@ -478,6 +601,7 @@ function getProgrammazioneById($IDProgrammazione): Programmazione
     $programmazione->setIdProgrammazione($data['IDProgrammazione']);
     $programmazione->setIdfEvento($data['IDFEvento']);
     $programmazione->setIdfFilm($data['IDFFilm']);
+    $programmazione->setIdfSala($data['IDFSala']);
     $programmazione->setData($data['Data']);
 
     return $programmazione;
@@ -497,6 +621,7 @@ function getProgrammazioni(): array
         $programmazione->setIdProgrammazione($riga['IDProgrammazione']);
         $programmazione->setIdfEvento($riga['IDFEvento']);
         $programmazione->setIdfFilm($riga['IDFFilm']);
+        $programmazione->setIdfSala($riga['IDFSala']);
         $programmazione->setData($riga['Data']);
 
         $programmazioniArray[] = $programmazione;
@@ -508,8 +633,8 @@ function getProgrammazioni(): array
 function insertProgrammazione(Programmazione $programmazione): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
-    $query = "INSERT INTO Programmazione (IDFEvento, IDFFilm, Data)
-    VALUES (" . $programmazione->getIdfEvento() . ", " . $programmazione->getIdfFilm() . ", '" . $programmazione->getData() . "');";
+    $query = "INSERT INTO Programmazione (IDFEvento, IDFFilm, IDFSala,Data)
+    VALUES (" . $programmazione->getIdfEvento() . ", " . $programmazione->getIdfFilm() . ", " . $programmazione->getIdfSala() . ", '" . $programmazione->getData() . "');";
 
     return $connection->query($query);
 }
@@ -517,8 +642,7 @@ function insertProgrammazione(Programmazione $programmazione): bool
 function editProgrammazione($IDProgrammazione, $newProgrammazione): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
-    $query = "UPDATE Programmazione 
-    SET IDFEvento=" . $newProgrammazione->getIdfEvento() . ", IDFFilm=" . $newProgrammazione->getIdfFilm() . ", Data='" . $newProgrammazione->getData() . "'
+    $query = "UPDATE Programmazione SET IDFEvento=" . $newProgrammazione->getIdfEvento() . ", IDFFilm=" . $newProgrammazione->getIdfFilm() . ", IDFSala=" . $newProgrammazione->getIdfSala() . ", Data='" . $newProgrammazione->getData() . "'
     WHERE IDProgrammazione=$IDProgrammazione;";
 
     return $connection->query($query);
