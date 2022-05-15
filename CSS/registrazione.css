@@ -31,12 +31,10 @@
 #btnWrapper{
     width: 80%; height: 22px;
 
-    margin-left: 50%; width: 80%;
+    margin-left: 50%;
     transform: translate(-50%);
 }
 #btnWrapper button{
-    width: inherit;
-
     margin-left: 50%; width: 80%;
     transform: translate(-50%);
 }
