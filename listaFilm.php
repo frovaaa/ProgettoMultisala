@@ -72,13 +72,13 @@ $arrayFilm = getFilms();
                         //If datetime is greater than now
                         if ($data > new DateTime()) {
                             //If prenotazioni by programmazione > sala postiMax
-                            if (count(getPrenotazioniByProgrammazione($programmazione->getIdProgrammazione())) > getSalaById($programmazione->getIdfSala())->getPostiMax()) {
+                            if (count(getPrenotazioniByProgrammazione($programmazione->getIdProgrammazione())) == getSalaById($programmazione->getIdfSala())->getPostiMax()) {
                                 ?>
                                 <tr>
                                     <td><?php echo $data->format('d/m/Y') ?></td>
                                     <td><?php echo $data->format('H:i') ?></td>
                                     <td>
-                                        <button class="btn btn-danger" disabled>Prenotazione non disponibile</button>
+                                        <button class="btn btn-danger" disabled>Sold Out</button>
                                     </td>
                                 </tr>
                                 <?php
@@ -89,7 +89,7 @@ $arrayFilm = getFilms();
                                     <td><?php echo $data->format('H:i') ?></td>
                                     <td>
                                         <form action="prenotaProgrammazione.php" method="post">
-                                            <input type="hidden" name="Programmazione"
+                                            <input type="hidden" name="IDProgrammazione"
                                                    value="<?php echo $programmazione->getIdProgrammazione() ?>">
                                             <button class="btn btn-success">Prenota</button>
                                         </form>
@@ -107,7 +107,5 @@ $arrayFilm = getFilms();
         <?php
     }
     ?>
-</div>
-
 </body>
 </html>

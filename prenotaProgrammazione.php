@@ -23,8 +23,10 @@ if (!isset($_SESSION['Utente'])) {
 }
 //Check if programmazione in post exists
 $programmazione = null;
-if (isset($_POST['Programmazione'])) {
-    $programmazione = getProgrammazioneById($_POST['Programmazione']);
+if (isset($_POST['IDProgrammazione'])) {
+    $programmazione = getProgrammazioneById($_POST['IDProgrammazione']);
+} else if (isset($_GET['IDProgrammazione'])) {
+    $programmazione = getProgrammazioneById($_POST['IDProgrammazione']);
 } else {
     $_SESSION['log'] = "Programmazione non trovata";
     header("Location: listaFilm.php");
@@ -32,11 +34,12 @@ if (isset($_POST['Programmazione'])) {
 $data = new DateTime($programmazione->getData());
 
 $sala = getSalaById($programmazione->getIdfSala());
+
+$nMaxColonna = 10;
+$postiMax = $sala->getPostiMax();
 /*
  * TODO: Da inserire in gestioneSale per riempimento
-$postiMax = $sala->getPostiMax();
 $postiSala = count(getPostiBySala($sala->getIdSala()));
-$nMaxColonna = 10;
 if ($postiSala == $postiMax) {
     $_SESSION['log'] = "Sala piena";
 } else {
@@ -101,12 +104,12 @@ if ($postiSala == $postiMax) {
         </div>
     </div>
     <!--Show n seats up to Sala PostiMax-->
-    <div class="card mt-3">
+    <div class="card mt-3 mb-3">
         <div class="card-header">
             <h3>Posti disponibili</h3>
         </div>
         <div class="card-body">
-            <div class="row">
+            <div class="row m-3">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="posti">Posti</label>
@@ -115,48 +118,56 @@ if ($postiSala == $postiMax) {
                                readonly>
                     </div>
                 </div>
+            </div>
+            <form action="Controllers/buyTickets.php" method="post">
                 <!--Print 70 icons in order-->
                 <?php
                 $posti = getPostiBySala($programmazione->getIdfSala());
-                echo "<div class='row'>";
+                echo "<div class='row m-1'>";
                 foreach ($posti as $key => $posto) {
                     if ($key % $nMaxColonna == 0 && $key != 0) {
-                        echo "</div><div class='row'>";
+                        echo "</div><div class='row m-1'>";
                     }
                     $IDPosto = $posto->getIdPosto();
                     ?>
                     <div class="col text-center">
-                        <div class="form-group">
-                            <label for="posto<?php echo $IDPosto ?>" class="m-1">
+                        <div class="btn-group" role="group">
+                            <?php
+                            if (isPostoOccupato($IDPosto, $programmazione->getIdProgrammazione())) {
+                            ?>
+                            <input type="checkbox" class="btn-check" id="posto<?php echo $IDPosto ?>"
+                                   name="posto<?php echo $IDPosto ?>"
+                                   autocomplete="off" disabled>
+                            <label class="btn btn-outline-primary" for="posto<?php echo $IDPosto ?>">
                                 <?php
-                                if (isPostoOccupato($IDPosto, $programmazione->getIdProgrammazione())) {
-                                    echo "<img src='Imgs/chair.png' alt='Occupato' width='32px' height='32px'>";
+                                echo "<img src='Imgs/chair.png' alt='Occupato' width='32px' height='32px'>";
                                 } else {
-                                    echo "<img src='Imgs/chairFree.png' alt='Libero' width='32px' height='32px'>";
-                                }
                                 ?>
-                            </label>
+                                <input type="checkbox" class="btn-check" id="posto<?php echo $IDPosto ?>"
+                                       name="posto<?php echo $IDPosto ?>"
+                                       autocomplete="off">
+                                <label class="btn btn-outline-primary" for="posto<?php echo $IDPosto ?>">
+                                    <?php
+                                    echo "<img src='Imgs/chairFree.png' alt='Libero' width='32px' height='32px'>";
+                                    }
+                                    ?>
+                                </label>
                         </div>
                     </div>
                     <?php
                 }
                 ?>
-            </div>
-        </div>
-    </div>
-    <!--Show button to buy ticket-->
-    <div class="card mt-3">
-        <div class="card-header">
-            <h3>Acquista biglietto</h3>
-        </div>
-        <div class="card-body">
-            <form action="buyTicket.php" method="post">
-                <input type="hidden" name="Programmazione" value="<?php echo $programmazione->getIdProgrammazione() ?>">
-                <button type="submit" class="btn btn-primary">Acquista</button>
+                <div class="card-header mt-3">
+                    <h3>Acquista biglietto</h3>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" name="IDProgrammazione"
+                           value="<?php echo $programmazione->getIdProgrammazione() ?>">
+                    <button type="submit" class="btn btn-primary">Acquista</button>
+                </div>
             </form>
         </div>
     </div>
 </div>
-
 </body>
 </html>

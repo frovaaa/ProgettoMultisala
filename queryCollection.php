@@ -471,7 +471,7 @@ function isPostoOccupato($IDPosto, $IDProgrammazione): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
-    $query = "SELECT * FROM Prenotazione WHERE IDFPosto=" . $IDPosto . " AND IDFProgrammazione=" . $IDProgrammazione;
+    $query = "SELECT * FROM Prenotazione WHERE IDFPosto=" . $IDPosto . " AND IDFProgrammazione=" . $IDProgrammazione . " LIMIT 1;";
     $data = $connection->query($query);
     $data = $data->fetch_all();
 
@@ -549,7 +549,7 @@ function insertPrenotazione(Prenotazione $prenotazione): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
     $query = "INSERT INTO Prenotazione (IDFUtente, IDFPosto, IDFProgrammazione, Codice)
-    VALUES (" . $prenotazione->getIdfUtente() . ", " . $prenotazione->getIdfPosto() . ", " . $prenotazione->getIdfProgrammazione() . ", " . $prenotazione->getCodice() . ");";
+    VALUES (" . $prenotazione->getIdfUtente() . ", " . $prenotazione->getIdfPosto() . ", " . $prenotazione->getIdfProgrammazione() . ", '" . $prenotazione->getCodice() . "');";
 
     return $connection->query($query);
 }
@@ -558,7 +558,7 @@ function editPrenotazione($IDPrenotazione, $newPrenotazione): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
     $query = "UPDATE Prenotazione 
-    SET IDFUtente=" . $newPrenotazione->getIdfUtente() . ", IDFPosto=" . $newPrenotazione->getIdfPosto() . ", IDFProgrammazione=" . $newPrenotazione->getIdfProgrammazione() . ", Codice=" . $newPrenotazione->getCodice() . "
+    SET IDFUtente=" . $newPrenotazione->getIdfUtente() . ", IDFPosto=" . $newPrenotazione->getIdfPosto() . ", IDFProgrammazione=" . $newPrenotazione->getIdfProgrammazione() . ", Codice='" . $newPrenotazione->getCodice() . "'
     WHERE IDPrenotazione=$IDPrenotazione;";
 
     return $connection->query($query);
