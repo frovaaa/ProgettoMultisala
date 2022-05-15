@@ -3,3 +3,8 @@
     margin: 0;
 }
 
+#formWrapper{
+    margin-left: 50%;
+    width: 80%;
+    transform: translate(-50%);
+}

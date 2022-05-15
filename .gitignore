@@ -1,4 +1,8 @@
-.idea
-/.idea
 *.idea
 *.xml
+.idea/
+.idea/deployment.xml
+.idea/sshConfigs.xml
+.idea/webServers.xml
+*.xml
+.idea/deployment.xml
