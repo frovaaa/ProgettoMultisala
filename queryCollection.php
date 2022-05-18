@@ -381,7 +381,7 @@ function getPostoById($IDPosto): Posto
 }
 
 //Add n posti up to Sala postimax
-function insertPosti($idfSala, $nPosti, $nMaxColonna): bool
+function insertPosti($idfSala, $nPosti, $nMaxColonna, $tipoPosto): bool
 {
     //get last posto with idfSala
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
@@ -404,10 +404,10 @@ function insertPosti($idfSala, $nPosti, $nMaxColonna): bool
 
     if ($nPosti == 1) {
         $query = "INSERT INTO Posto (IDFTipoPosto, IDFSala, Riga, Colonna)
-        VALUES (1, $idfSala, '$riga', '$colonna');";
+        VALUES ($tipoPosto, $idfSala, '$riga', '$colonna');";
     } else {
         $query = "INSERT INTO Posto (IDFTipoPosto, IDFSala, Riga, Colonna)
-        VALUES (1, $idfSala, '$riga', '$colonna')";
+        VALUES ($tipoPosto, $idfSala, '$riga', '$colonna')";
 
         for ($i = 1; $i < $nPosti; $i++) {
             if ($colonna == $nMaxColonna) {
@@ -416,7 +416,7 @@ function insertPosti($idfSala, $nPosti, $nMaxColonna): bool
             } else {
                 $colonna++;
             }
-            $query .= ", (1, $idfSala, '$riga', '$colonna')";
+            $query .= ", ($tipoPosto, $idfSala, '$riga', '$colonna')";
         }
         $query .= ";";
 

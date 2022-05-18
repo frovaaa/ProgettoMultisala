@@ -37,6 +37,7 @@ $sala = getSalaById($programmazione->getIdfSala());
 
 $nMaxColonna = 10;
 $postiMax = $sala->getPostiMax();
+
 /*
  * TODO: Da inserire in gestioneSale per riempimento
 $postiSala = count(getPostiBySala($sala->getIdSala()));
@@ -45,9 +46,10 @@ if ($postiSala == $postiMax) {
 } else {
     $postiDisponibili = $postiMax - $postiSala;
     //$postiDisponibili = 5;
-    var_dump(insertPosti($sala->getIdSala(), $postiDisponibili, $nMaxColonna));
+    var_dump(insertPosti($sala->getIdSala(), $postiDisponibili, $nMaxColonna, 2));
 }
 */
+
 
 ?>
 
@@ -133,7 +135,8 @@ if ($postiSala == $postiMax) {
                     $colonna = $posto->getColonna();
                     ?>
                     <div class="col text-center">
-                        <div class="btn-group poltrona" role="group" data-bs-toggle="tooltip" data-bs-placement="top" title="<?php echo $riga.'-'.$colonna?>">
+                        <div class="btn-group poltrona" role="group" data-bs-toggle="tooltip" data-bs-placement="top"
+                             title="<?php echo $riga . '-' . $colonna ?>">
                             <?php
                             if (isPostoOccupato($IDPosto, $programmazione->getIdProgrammazione())) {
                             ?>
@@ -142,15 +145,17 @@ if ($postiSala == $postiMax) {
                                    autocomplete="off" disabled>
                             <label class="btn btn-outline-primary" for="posto<?php echo $IDPosto ?>">
                                 <?php
-                                echo "<img src='Imgs/chair.png' alt='Occupato' width='32px' height='32px'>";
+                                if ($posto->getIdfTipoPosto() == 1) echo "<img src='Images/chair.png' alt='Occupato' width='32px' height='32px'>";
+                                else if ($posto->getIdfTipoPosto() == 2) echo "<img src='Images/premiumPrenotata.png' alt='Occupato' width='32px' height='32px'>";
                                 } else {
                                 ?>
-                                <input type="checkbox" class="btn-check poltrona" id="posto<?php echo $IDPosto ?>"
+                                <input type="checkbox" class="btn-check" id="posto<?php echo $IDPosto ?>"
                                        name="posto<?php echo $IDPosto ?>"
                                        autocomplete="off">
                                 <label class="btn btn-outline-primary" for="posto<?php echo $IDPosto ?>">
                                     <?php
-                                    echo "<img src='Imgs/chairFree.png' alt='Libero' width='32px' height='32px'>";
+                                    if ($posto->getIdfTipoPosto() == 1) echo "<img src='Images/chairFree.png' alt='Occupato' width='32px' height='32px'>";
+                                    else if ($posto->getIdfTipoPosto() == 2) echo "<img src='Images/premiumDisponibile.png' alt='Occupato' width='32px' height='32px'>";
                                     }
                                     ?>
                                 </label>
@@ -171,14 +176,18 @@ if ($postiSala == $postiMax) {
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+        integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+        crossorigin="anonymous"></script>
 
 <script>
-let poltrone = document.getElementsByClassName("poltrona");
-for (let i = 0; i < poltrone.length; i++) {
-    new bootstrap.Tooltip(poltrone[i]);
-}
+    let poltrone = document.getElementsByClassName("poltrona");
+    for (let i = 0; i < poltrone.length; i++) {
+        new bootstrap.Tooltip(poltrone[i]);
+    }
 </script>
 </body>
 </html>
