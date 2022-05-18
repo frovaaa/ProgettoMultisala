@@ -51,16 +51,32 @@ nav{
 #profile{
     float: right;
 
-    position: relative;
-    top: 50%; right: 10%;
-    transform: translate(50%, -50%);
+    height: 100%; width: 20%;
 }
 #profile a{
     color: rgba(0, 0, 0, 50%); text-decoration: none;
     font-weight: bold;
+
+    position: relative; top: 45%;
 }
 
+#menuProfileWrapper{
+    height: inherit; width: 100%;
+}
 
+#logoProfile{
+    height: 100%; width: auto;
+}
+#logoProfile img{
+    width: auto; height: 35%;
+    border-radius: 50%;
+
+    top: 50%; right: -50%;
+    transform: translate(-50%, -50%);
+    position: relative;
+
+    cursor: pointer;
+}
 
 
 /* Fine parte navbar */
