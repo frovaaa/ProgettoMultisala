@@ -15,7 +15,7 @@
         <div id="profile">
             <div id="menuProfileWrapper">
                 <div id="logoProfile">
-                    <img src="">
+                    <img src="Images/blankProfile.png">
                 </div>
                 <div id="listProfile">
 

@@ -60,7 +60,12 @@ nav{
     font-weight: bold;
 }
 
-
+#logoProfile{
+    height: 50%; width: 50%;
+}
+#logoProfile img{
+    width: inherit; height: inherit;
+}
 
 
 /* Fine parte navbar */
