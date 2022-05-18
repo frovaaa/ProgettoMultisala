@@ -1,7 +1,6 @@
 <?php
 
 class Utente {
-
   private $idUtente;
   private $idfRuolo;
   private $nome;
