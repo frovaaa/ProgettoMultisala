@@ -68,7 +68,8 @@ nav{
     height: 100%; width: auto;
 }
 #logoProfile img{
-    width: auto; height: 35%;
+    width: auto;
+    height: 35%;
     border-radius: 50%;
 
     top: 50%; right: -50%;

@@ -25,6 +25,7 @@
             echo ('<div id="logoProfile">
                             <img id="c1" src="'. $default .'">
                         </div>');
+
         }else{
             ?>
             <a href="login.php">Login</a>
@@ -40,9 +41,16 @@
         window.location.href = "homepage.php";
     }
     const handlerProfile = function (e) {
-        window.location.href = "";
+        window.location.href = "homepage.php";
+    }
+    const handlerImmagine = function(e) {
+        let obj = document.getElementById("c1");
+
+        obj.style.width = obj.height + "px";
     }
 
     document.getElementById("c1").addEventListener("click", handlerProfile);
-    document.getElementById("logo").addEventListener("click", handlerClickHome)
+    document.getElementById("logo").addEventListener("click", handlerClickHome);
+    window.addEventListener("resize", handlerImmagine);
+    window.addEventListener("load", handlerImmagine);
 </script>
