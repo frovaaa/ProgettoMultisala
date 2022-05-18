@@ -20,21 +20,30 @@ if (isset($_SESSION['log'])) {
 }
 ?>
 <div class="container">
-    <form action="Controllers/verificaLogin.php" method="post">
-        <div class="mb-3">
-            <label for="usernameOrEmail" class="form-label">Email o Username</label>
-            <input type="text" class="form-control" id="usernameOrEmail" name="usernameOrEmail" required>
+    <!--Login page of cinema-->
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Login</h3>
+                </div>
+                <div class="card-body">
+                    <form action="Controllers/verificaLogin.php" method="post">
+                        <div class="form-group">
+                            <label for="usernameOrEmail">Username / Email</label>
+                            <input type="text" class="form-control" id="usernameOrEmail" name="usernameOrEmail" placeholder="Username / Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password"
+                                   placeholder="Password">
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Login</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" name="password" required>
-        </div>
-        <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
-            <label class="form-check-label" for="rememberMe">Ricordami</label>
-        </div>
-        <button type="submit" class="btn btn-primary">Login</button>
-    </form>
+    </div>
 </div>
 
 
