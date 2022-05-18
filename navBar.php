@@ -13,15 +13,24 @@
             </ul>
         </div>
         <div id="profile">
-            <div id="menuProfileWrapper">
-                <div id="logoProfile">
-                    <img src="Images/blankProfile.png">
-                </div>
-                <div id="listProfile">
+        <?php
+        $utente = null;
 
-                </div>
-            </div>
+        if (isset($_SESSION['Utente'])) {
+            $utente = $_SESSION["Utente"];
+            $default = "Images/blankProfile.png";
 
+            if($utente->getImmagineProfilo() != null) $default = $utente->getImmagineProfilo();
+
+            echo ('<div id="logoProfile">
+                            <img id="c1" src="'. $default .'">
+                        </div>');
+        }else{
+            ?>
+            <a href="login.php">Login</a>
+            <?php
+        }
+        ?>
         </div>
     </nav>
 </header>
@@ -30,6 +39,10 @@
     const handlerClickHome = function (e){
         window.location.href = "homepage.php";
     }
+    const handlerProfile = function (e) {
+        window.location.href = "";
+    }
 
+    document.getElementById("c1").addEventListener("click", handlerProfile);
     document.getElementById("logo").addEventListener("click", handlerClickHome)
 </script>
