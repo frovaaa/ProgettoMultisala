@@ -10,14 +10,8 @@
 </head>
 <body>
 <?php
-include "queryCollection.php";
-session_start();
-$utente = null;
-
-if (isset($_SESSION['Utente'])) {
-    $utente = $_SESSION['Utente'];
-    echo "<h1>Benvenuto " . $utente->getUsername() . "</h1>";
-}
+    include "queryCollection.php";
+    session_start();
 ?>
 <?php include "navBar.php" ?>
 <main>
