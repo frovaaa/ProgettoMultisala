@@ -2,7 +2,21 @@
 <project version="4">
   <component name="PublishConfigData">
     <serverData>
-      <paths name="ServerBrutto">
+      <paths name="Bartollo">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Bartolucci">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Squiddy">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
@@ -11,5 +25,4 @@
       </paths>
     </serverData>
   </component>
-  
 </project>

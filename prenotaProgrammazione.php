@@ -129,9 +129,11 @@ if ($postiSala == $postiMax) {
                         echo "</div><div class='row m-1'>";
                     }
                     $IDPosto = $posto->getIdPosto();
+                    $riga = $posto->getRiga();
+                    $colonna = $posto->getColonna();
                     ?>
                     <div class="col text-center">
-                        <div class="btn-group" role="group">
+                        <div class="btn-group poltrona" role="group" data-bs-toggle="tooltip" data-bs-placement="top" title="<?php echo $riga.'-'.$colonna?>">
                             <?php
                             if (isPostoOccupato($IDPosto, $programmazione->getIdProgrammazione())) {
                             ?>
@@ -143,7 +145,7 @@ if ($postiSala == $postiMax) {
                                 echo "<img src='Imgs/chair.png' alt='Occupato' width='32px' height='32px'>";
                                 } else {
                                 ?>
-                                <input type="checkbox" class="btn-check" id="posto<?php echo $IDPosto ?>"
+                                <input type="checkbox" class="btn-check poltrona" id="posto<?php echo $IDPosto ?>"
                                        name="posto<?php echo $IDPosto ?>"
                                        autocomplete="off">
                                 <label class="btn btn-outline-primary" for="posto<?php echo $IDPosto ?>">
@@ -169,5 +171,14 @@ if ($postiSala == $postiMax) {
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+
+<script>
+let poltrone = document.getElementsByClassName("poltrona");
+for (let i = 0; i < poltrone.length; i++) {
+    new bootstrap.Tooltip(poltrone[i]);
+}
+</script>
 </body>
 </html>
