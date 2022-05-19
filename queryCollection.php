@@ -233,6 +233,7 @@ function getFilmAttoreByFilm($IDFilm): array
 
     $query = "SELECT * FROM FilmAttore WHERE IDFFilm=" . $IDFilm;
     $data = $connection->query($query);
+    if (!$data) return [];
 
     $resultArray = [];
 
@@ -253,6 +254,7 @@ function getFilmAttoreByAttore($IDFAttore): array
 
     $query = "SELECT * FROM FilmAttore WHERE IDFAttore=" . $IDFAttore;
     $data = $connection->query($query);
+    if (!$data) return [];
 
     $resultArray = [];
 
@@ -295,6 +297,7 @@ function getFilmGenereByFilm($IDFilm): array
 
     $query = "SELECT * FROM FilmGenere WHERE IDFFilm=" . $IDFilm;
     $data = $connection->query($query);
+    if (!$data) return [];
 
     $resultArray = [];
 
@@ -315,6 +318,7 @@ function getFilmGenereByGenere($IDFGenere): array
 
     $query = "SELECT * FROM FilmGenere WHERE IDFGenere=" . $IDFGenere;
     $data = $connection->query($query);
+    if (!$data) return [];
 
     $resultArray = [];
 
@@ -459,6 +463,7 @@ function getPostiBySala($IDFSala): array
 
     $query = "SELECT * FROM Posto WHERE IDFSala=" . $IDFSala;
     $data = $connection->query($query);
+    if (!$data) return [];
 
     $resultArray = [];
 
@@ -500,7 +505,8 @@ function isPostoOccupato($IDPosto, $IDProgrammazione): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
-    $query = "SELECT * FROM PrenotazionePosto WHERE IDFPosto=$IDPosto AND IDFPrenotazione IN (SELECT IDFPrenotazione FROM Prenotazione WHERE IDFProgrammazione=$IDProgrammazione) LIMIT 1;";
+    $query = "SELECT * FROM PrenotazionePosto INNER JOIN Prenotazione P on PrenotazionePosto.IDFPrenotazione = P.IDPrenotazione
+         WHERE PrenotazionePosto.IDFPosto=$IDPosto AND P.IDFProgrammazione=$IDProgrammazione LIMIT 1;";
 
     $data = $connection->query($query);
     $data = $data->fetch_all();
@@ -531,48 +537,42 @@ function getPrenotazioneById($IDPrenotazione): Prenotazione
     return $prenotazione;
 }
 
-function getPrenotazioniByIdUtente($IDFUtente): array
+function getPrenotazioneByIdUtente($IDFUtente): Prenotazione
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
     $query = "SELECT * FROM Prenotazione WHERE IDFUtente=" . $IDFUtente;
     $data = $connection->query($query);
+    $data = $data->fetch_assoc();
 
-    $prenotazioniArray = [];
-    while ($riga = $data->fetch_assoc()) {
-        $prenotazione = new Prenotazione();
-        $prenotazione->setIdPrenotazione($riga['IDPrenotazione']);
-        $prenotazione->setIdfUtente($riga['IDFUtente']);
-        $prenotazione->setIdfProgrammazione($riga['IDFProgrammazione']);
-        $prenotazione->setDataPrenotazione($riga['DataPrenotazione']);
-        $prenotazione->setCodice($riga['Codice']);
+    $prenotazione = new Prenotazione();
 
-        $prenotazioniArray[] = $prenotazione;
-    }
+    $prenotazione->setIdPrenotazione($data['IDPrenotazione']);
+    $prenotazione->setIdfUtente($data['IDFUtente']);
+    $prenotazione->setIdfProgrammazione($data['IDFProgrammazione']);
+    $prenotazione->setDataPrenotazione($data['DataPrenotazione']);
+    $prenotazione->setCodice($data['Codice']);
 
-    return $prenotazioniArray;
+    return $prenotazione;
 }
 
-function getPrenotazioniByProgrammazione($IDFProgrammazione): array
+function getPrenotazioneByProgrammazione($IDFProgrammazione): Prenotazione
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
     $query = "SELECT * FROM Prenotazione WHERE IDFProgrammazione=" . $IDFProgrammazione;
     $data = $connection->query($query);
+    $data = $data->fetch_assoc();
 
-    $prenotazioniArray = [];
-    while ($riga = $data->fetch_assoc()) {
-        $prenotazione = new Prenotazione();
-        $prenotazione->setIdPrenotazione($riga['IDPrenotazione']);
-        $prenotazione->setIdfUtente($riga['IDFUtente']);
-        $prenotazione->setIdfProgrammazione($riga['IDFProgrammazione']);
-        $prenotazione->setDataPrenotazione($riga['DataPrenotazione']);
-        $prenotazione->setCodice($riga['Codice']);
+    $prenotazione = new Prenotazione();
 
-        $prenotazioniArray[] = $prenotazione;
-    }
+    $prenotazione->setIdPrenotazione($data['IDPrenotazione']);
+    $prenotazione->setIdfUtente($data['IDFUtente']);
+    $prenotazione->setIdfProgrammazione($data['IDFProgrammazione']);
+    $prenotazione->setDataPrenotazione($data['DataPrenotazione']);
+    $prenotazione->setCodice($data['Codice']);
 
-    return $prenotazioniArray;
+    return $prenotazione;
 }
 
 //Get prenotazione by codice and datetime
@@ -895,6 +895,7 @@ function getUtenteCinemaByUtente($IDUtente): array
 
     $query = "SELECT * FROM UtenteCinema WHERE IDFUtente=" . $IDUtente;
     $data = $connection->query($query);
+    if (!$data) return [];
 
     $resultArray = [];
 
@@ -915,6 +916,7 @@ function getUtenteCinemaByCinema($IDFCinema): array
 
     $query = "SELECT * FROM UtenteCinema WHERE IDFCinema=" . $IDFCinema;
     $data = $connection->query($query);
+    if (!$data) return [];
 
     $resultArray = [];
 
@@ -951,12 +953,14 @@ function editUtenteCinema($idUtente, $idfCinema, $newUtenteCinema): bool
 #endregion
 
 #region FUNZIONI PRENOTAZIONE_POSTO
-function getPrenotazionePostoByPrenotazione($IDPrenotazione): array
+function getPrenotazioniPostoByPrenotazione($IDPrenotazione): array
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
     $query = "SELECT * FROM PrenotazionePosto WHERE IDFPrenotazione=" . $IDPrenotazione;
     $data = $connection->query($query);
+
+    if (!$data) return [];
 
     $resultArray = [];
 
@@ -970,25 +974,23 @@ function getPrenotazionePostoByPrenotazione($IDPrenotazione): array
 
     return $resultArray;
 }
-function getPrenotazionePostoByPosto($IDFPosto): array
+
+function getPrenotazionePostoByPosto($IDFPosto): PrenotazionePosto
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
     $query = "SELECT * FROM PrenotazionePosto WHERE IDFPosto=" . $IDFPosto;
     $data = $connection->query($query);
 
-    $resultArray = [];
+    $riga = $data->fetch_assoc();
 
-    while ($riga = $data->fetch_assoc()) {
-        $prenotazionePosto = new PrenotazionePosto();
-        $prenotazionePosto->setIdfPosto($IDFPosto);
-        $prenotazionePosto->setIdfPrenotazione($riga['IDFPrenotazione']);
+    $prenotazionePosto = new PrenotazionePosto();
+    $prenotazionePosto->setIdfPrenotazione($riga['IDFPrenotazione']);
+    $prenotazionePosto->setIdfPosto($IDFPosto);
 
-        $resultArray[] = $prenotazionePosto;
-    }
-
-    return $resultArray;
+    return $prenotazionePosto;
 }
+
 //Insert PrenotazionePosto
 function insertPrenotazionePosto(PrenotazionePosto $prenotazionePosto): bool
 {
@@ -998,6 +1000,7 @@ function insertPrenotazionePosto(PrenotazionePosto $prenotazionePosto): bool
 
     return $connection->query($query);
 }
+
 //Edit PrenotazionePosto
 function editPrenotazionePosto($idPrenotazione, $idfPosto, $newPrenotazionePosto): bool
 {
