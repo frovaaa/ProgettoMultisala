@@ -1,5 +1,5 @@
 <?php
-require_once "../queryCollection.php";
+require_once "queryCollection.php";
 session_start();
 
 
@@ -47,5 +47,5 @@ $mail_headers .= "Content-type: text/html; charset=iso-8859-1";
 //mail($mail_destinatario, $mail_oggetto, $mail_corpo, $mail_headers);    //Mando la mail
 #endregion
 
-header("Location: ../login.php");
+header("Location: login.php");
 exit();

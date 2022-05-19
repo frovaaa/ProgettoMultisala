@@ -148,7 +148,7 @@ if ($postiSala == $postiMax) {
                     </div>
                 </div>
             </div>
-            <form action="Controllers/buyTickets.php" method="post">
+            <form action="buyTickets.php" method="post">
                 <!--Print 70 icons in order-->
                 <?php
                 $posti = getPostiBySala($programmazione->getIdfSala());

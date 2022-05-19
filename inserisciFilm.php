@@ -9,7 +9,7 @@
 </head>
 <body>
 <?php
-require_once "../queryCollection.php";
+require_once "queryCollection.php";
 session_start();
 
 

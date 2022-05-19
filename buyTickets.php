@@ -1,12 +1,12 @@
 <?php
-require_once "../queryCollection.php";
+require_once "queryCollection.php";
 session_start();
 $utente = $_SESSION['Utente'];
 
 //If isset IDProgrammazione
 if (!isset($_POST['IDProgrammazione'])) {
     $_SESSION['log'] = "Errore: IDProgrammazione non settato";
-    header("Location: ../listaFilm?IDProgrammazione=" . $_POST['IDProgrammazione']);
+    header("Location: listaFilm?IDProgrammazione=" . $_POST['IDProgrammazione']);
     exit();
 }
 
@@ -22,7 +22,7 @@ foreach ($_POST as $key => $value) {
 
 if (count($postiSelezionati) == 0) {
     $_SESSION['log'] = "Errore: non hai selezionato nessun posto";
-    header("Location: ../prenotaProgrammazione.php?IDProgrammazione=" . $_POST['IDProgrammazione']);
+    header("Location: prenotaProgrammazione.php?IDProgrammazione=" . $_POST['IDProgrammazione']);
     exit();
 }
 
@@ -52,7 +52,7 @@ foreach ($postiSelezionati as $posto) {
 }
 
 $_SESSION['log'] = "Prenotazione effettuata con successo";
-header("Location: ../listaFilm.php");
+header("Location: listaFilm.php");
 exit();
 
 function generateRandomString($length): string

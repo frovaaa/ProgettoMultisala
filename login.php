@@ -21,14 +21,14 @@ if (isset($_SESSION['log'])) {
 ?>
 <div class="container">
     <!--Login page of cinema-->
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-md-6 offset-md-3">
             <div class="card">
                 <div class="card-header">
                     <h3>Login</h3>
                 </div>
                 <div class="card-body">
-                    <form action="Controllers/verificaLogin.php" method="post">
+                    <form action="verificaLogin.php" method="post">
                         <div class="form-group">
                             <label for="usernameOrEmail">Username / Email</label>
                             <input type="text" class="form-control" id="usernameOrEmail" name="usernameOrEmail" placeholder="Username / Email">

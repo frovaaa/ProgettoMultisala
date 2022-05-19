@@ -722,6 +722,22 @@ function getRuoloById($IDRuolo): Ruolo
     return $ruolo;
 }
 
+function getRuoloAsString($IDRuolo): string
+{
+    switch ($IDRuolo) {
+        case 1:
+            return "Cliente";
+        case 2:
+            return "Responsabile";
+        case 3:
+            return "Direttore";
+        case 4:
+            return "Amministratore";
+        default:
+            return $IDRuolo;
+    }
+}
+
 function insertRuolo(Ruolo $ruolo): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
@@ -844,6 +860,35 @@ function getUtenteById($IDUtente): Utente
     return $utente;
 }
 
+//Get utenti
+function getUtenti(): array
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+
+    $query = "SELECT * FROM Utente";
+    $data = $connection->query($query);
+
+    $utenti = [];
+
+    while ($row = $data->fetch_assoc()) {
+        $utente = new Utente();
+
+        $utente->setIdUtente($row['IDUtente']);
+        $utente->setIdfRuolo($row['IDFRuolo']);
+        $utente->setNome($row['Nome']);
+        $utente->setCognome($row['Cognome']);
+        $utente->setUsername($row['Username']);
+        $utente->setPassword($row['Password']);
+        $utente->setEmail($row['Email']);
+        $utente->setCellulare($row['Cellulare']);
+        $utente->setImmagineProfilo($row['ImmagineProfilo']);
+
+        $utenti[] = $utente;
+    }
+
+    return $utenti;
+}
+
 function insertUtente(Utente $utente): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
@@ -885,6 +930,33 @@ function getUtenteOfCinemaByRole($IDCinema, $IDFRuolo): Utente
 
     return $utente;
 }
+
+#region ROLE_IDENTIFICATION
+function isCliente($Utente): bool
+{
+    if ($Utente->getIdfRuolo() == 1) return true;
+    else return false;
+}
+
+function isResponsabile($Utente): bool
+{
+    if ($Utente->getIdfRuolo() == 2) return true;
+    else return false;
+}
+
+function isDirettore($Utente): bool
+{
+    if ($Utente->getIdfRuolo() == 3) return true;
+    else return false;
+}
+
+function isAmministratore($Utente): bool
+{
+    if ($Utente->getIdfRuolo() == 4) return true;
+    else return false;
+}
+
+#endregion
 
 #endregion
 

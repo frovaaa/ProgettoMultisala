@@ -70,7 +70,7 @@ if (!isset($_SESSION['Utente'])) {
             <div class="row">
                 <div class="col-md-4">
                     <h3>Utenti</h3>
-                    <a href="utenti.php" class="btn btn-success">Visualizza</a>
+                    <a href="listaUtenti.php" class="btn btn-success">Visualizza</a>
                 </div>
                 <div class="col-md-4">
                     <h3>Sedi</h3>

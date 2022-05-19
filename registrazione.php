@@ -23,7 +23,7 @@ if (isset($_SESSION['log'])) {
 
 <div id="formWrapper">
     <div>
-        <form method="post" action="Controllers/verificaRegistrazione.php" id="formBello">
+        <form method="post" action="verificaRegistrazione.php" id="formBello">
             <div class="double inputGroup">
                 <input name="nome" type="text" required placeholder="Nome">
                 <input name="cognome" type="text" required placeholder="Cognome" style="margin-left: 5%">
