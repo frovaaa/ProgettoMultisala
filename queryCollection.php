@@ -813,6 +813,7 @@ function getUtenteById($IDUtente): Utente
     $utente->setPassword($data['Password']);
     $utente->setEmail($data['Email']);
     $utente->setCellulare($data['Cellulare']);
+    $utente->setImmagineProfilo($data['ImmagineProfilo']);
 
     return $utente;
 }

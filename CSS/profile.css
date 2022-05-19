@@ -1,0 +1,11 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+main{
+    width: 100%; height: auto;
+}
+main div{
+    width: inherit; height: inherit;
+}
