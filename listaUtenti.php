@@ -16,13 +16,13 @@
 <?php
 require_once "queryCollection.php";
 session_start();
-if(!isset($_SESSION['Utente'])){
+if (!isset($_SESSION['Utente'])) {
     $_SESSION['log'] = "Devi effettuare il login per accedere a questa pagina";
     header("Location: login.php");
     exit();
 }
 //Check if Utente is Administrator
-if(!isAmministratore($_SESSION['Utente'])){
+if (!isAmministratore($_SESSION['Utente'])) {
     $_SESSION['log'] = "Non hai i permessi per accedere a questa pagina";
     header("Location: login.php");
     exit();
@@ -43,6 +43,7 @@ $utenti = getUtenti();
                     <th scope="col">Email</th>
                     <th scope="col">Cellulare</th>
                     <th scope="col">Ruolo</th>
+                    <th scope="col">Attivo</th>
                     <th scope="col">Modifica</th>
                     <th scope="col">Elimina</th>
                 </tr>
@@ -56,6 +57,7 @@ $utenti = getUtenti();
                     $email = $utente->getEmail();
                     $cellulare = $utente->getCellulare();
                     $tipoUtente = getRuoloAsString($utente->getIdfRuolo());
+                    $attivo = (isAttivo($utente)) ? "Si" : "No";
                     $id = $utente->getIdUtente();
 
                     echo "<tr>";
@@ -66,8 +68,15 @@ $utenti = getUtenti();
                     echo "<td>$email</td>";
                     echo "<td>$cellulare</td>";
                     echo "<td>$tipoUtente</td>";
-                    echo "<td><a href=\"modificaUtente.php?id=$id\"><i class=\"bi bi-pencil\"></i></a></td>";
-                    echo "<td><a href=\"eliminaUtente.php?id=$id\"><i class=\"bi bi-trash\"></i></a></td>";
+                    echo "<td>$attivo</td>";
+                    echo "<td><form action='modificaUtente.php' method='post'>
+                            <input type='hidden' name='id' value='$id'>
+                            <button type='submit' class='btn btn-primary'><i class='bi bi-pencil'></i></button>
+                        </form></td>";
+                    echo "<td><form action='eliminaUtente.php' method='post'>
+                            <input type='hidden' name='id' value='$id'>
+                            <button type='submit' class='btn btn-danger'><i class='bi bi-trash'></i></button>
+                        </form></td>";
                     echo "</tr>";
                 }
                 ?>

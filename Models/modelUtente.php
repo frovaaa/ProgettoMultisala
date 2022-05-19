@@ -4,6 +4,7 @@ class Utente {
 
   private $idUtente;
   private $idfRuolo;
+  private $attivo;
   private $nome;
   private $cognome;
   private $username;
@@ -26,6 +27,14 @@ class Utente {
 
   public function setIdfRuolo($idfRuolo) {
     $this->idfRuolo = $idfRuolo;
+  }
+
+  public function getAttivo() {
+    return $this->attivo;
+  }
+
+  public function setAttivo($attivo) {
+    $this->attivo = $attivo;
   }
 
   public function getNome() {

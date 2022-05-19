@@ -722,6 +722,28 @@ function getRuoloById($IDRuolo): Ruolo
     return $ruolo;
 }
 
+//Get ruoli
+function getRuoli(): array
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+
+    $query = "SELECT * FROM Ruolo";
+    $data = $connection->query($query);
+
+    $ruoliArray = [];
+    while ($riga = $data->fetch_assoc()) {
+        $ruolo = new Ruolo();
+
+        $ruolo->setIdRuolo($riga['IDRuolo']);
+        $ruolo->setNome($riga['Nome']);
+        $ruolo->setDescrizione($riga['Descrizione']);
+
+        $ruoliArray[] = $ruolo;
+    }
+
+    return $ruoliArray;
+}
+
 function getRuoloAsString($IDRuolo): string
 {
     switch ($IDRuolo) {
@@ -849,6 +871,7 @@ function getUtenteById($IDUtente): Utente
 
     $utente->setIdUtente($data['IDUtente']);
     $utente->setIdfRuolo($data['IDFRuolo']);
+    $utente->setAttivo($data['Attivo']);
     $utente->setNome($data['Nome']);
     $utente->setCognome($data['Cognome']);
     $utente->setUsername($data['Username']);
@@ -875,6 +898,7 @@ function getUtenti(): array
 
         $utente->setIdUtente($row['IDUtente']);
         $utente->setIdfRuolo($row['IDFRuolo']);
+        $utente->setAttivo($row['Attivo']);
         $utente->setNome($row['Nome']);
         $utente->setCognome($row['Cognome']);
         $utente->setUsername($row['Username']);
@@ -892,9 +916,8 @@ function getUtenti(): array
 function insertUtente(Utente $utente): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
-    $query = "INSERT INTO Utente (IDFRuolo, Nome, Cognome, Username, Password, Email, Cellulare)
-    VALUES (" . $utente->getIdfRuolo() . ", '" . $utente->getNome() . "', '" . $utente->getCognome() . "', '" . $utente->getUsername() . "', '" . $utente->getPassword() . "', '" . $utente->getEmail() . "', '" . $utente->getCellulare() . "');";
-
+    $query = "INSERT INTO Utente (IDFRuolo, Nome, Cognome, Username, Password, Email, Cellulare, ImmagineProfilo)
+    VALUES (" . $utente->getIdfRuolo() . ", '" . $utente->getNome() . "', '" . $utente->getCognome() . "', '" . $utente->getUsername() . "', '" . $utente->getPassword() . "', '" . $utente->getEmail() . "', '" . $utente->getCellulare() . "', '" . $utente->getImmagineProfilo() . "');";
     return $connection->query($query);
 }
 
@@ -902,7 +925,7 @@ function editUtente($IDUtente, $newUtente): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
     $query = "UPDATE Utente 
-    SET IDFRuolo=" . $newUtente->getIdfRuolo() . ", Nome='" . $newUtente->getNome() . "', Cognome='" . $newUtente->getCognome() . "', Username='" . $newUtente->getUsername() . "', Password='" . $newUtente->getPassword() . "', Email='" . $newUtente->getEmail() . "', Cellulare='" . $newUtente->getCellulare() . "'
+    SET IDFRuolo=" . $newUtente->getIdfRuolo() . ", Attivo=" . $newUtente->getAttivo() . ", Nome='" . $newUtente->getNome() . "', Cognome='" . $newUtente->getCognome() . "', Username='" . $newUtente->getUsername() . "', Password='" . $newUtente->getPassword() . "', Email='" . $newUtente->getEmail() . "', Cellulare='" . $newUtente->getCellulare() . "', ImmagineProfilo='" . $newUtente->getImmagineProfilo() . "'
     WHERE IDUtente=$IDUtente;";
 
     return $connection->query($query);
@@ -921,6 +944,7 @@ function getUtenteOfCinemaByRole($IDCinema, $IDFRuolo): Utente
 
     $utente->setIdUtente($data['IDUtente']);
     $utente->setIdfRuolo($data['IDFRuolo']);
+    $utente->setAttivo($data['Attivo']);
     $utente->setNome($data['Nome']);
     $utente->setCognome($data['Cognome']);
     $utente->setUsername($data['Username']);
@@ -929,6 +953,13 @@ function getUtenteOfCinemaByRole($IDCinema, $IDFRuolo): Utente
     $utente->setCellulare($data['Cellulare']);
 
     return $utente;
+}
+
+//is utente attivo
+function isAttivo($Utente): bool
+{
+    if ($Utente->getAttivo()) return true;
+    else return false;
 }
 
 #region ROLE_IDENTIFICATION
