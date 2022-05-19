@@ -4,8 +4,8 @@ class Prenotazione {
 
   private $idPrenotazione;
   private $idfUtente;
-  private $idfPosto;
   private $idfProgrammazione;
+  private $dataPrenotazione;
   private $codice;
 
   public function getIdPrenotazione() {
@@ -24,20 +24,20 @@ class Prenotazione {
     $this->idfUtente = $idfUtente;
   }
 
-  public function getIdfPosto() {
-    return $this->idfPosto;
-  }
-
-  public function setIdfPosto($idfPosto) {
-    $this->idfPosto = $idfPosto;
-  }
-
   public function getIdfProgrammazione() {
     return $this->idfProgrammazione;
   }
 
   public function setIdfProgrammazione($idfProgrammazione) {
     $this->idfProgrammazione = $idfProgrammazione;
+  }
+
+  public function getDataPrenotazione() {
+    return $this->dataPrenotazione;
+  }
+
+  public function setDataPrenotazione($dataPrenotazione) {
+    $this->dataPrenotazione = $dataPrenotazione;
   }
 
   public function getCodice() {
