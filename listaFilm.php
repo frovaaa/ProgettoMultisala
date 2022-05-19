@@ -75,8 +75,7 @@ $arrayFilm = getFilms();
                         //If datetime is greater than now
                         if ($data > new DateTime()) {
                             //If prenotazioni by programmazione > sala postiMax
-                            $idfPrenotazione = getPrenotazioneByProgrammazione($programmazione->getIdProgrammazione())->getIdPrenotazione();
-                            if (count(getPrenotazioniPostoByPrenotazione($idfPrenotazione)) == getSalaById($programmazione->getIdfSala())->getPostiMax()) {
+                            if (count(getPrenotazioniPostoByProgrammazione($programmazione->getIdProgrammazione())) == getSalaById($programmazione->getIdfSala())->getPostiMax()) {
                                 ?>
                                 <tr>
                                     <td><?php echo $data->format('d/m/Y') ?></td>
