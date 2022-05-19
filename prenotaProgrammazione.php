@@ -50,8 +50,44 @@ if ($postiSala == $postiMax) {
 }
 */
 
-
 ?>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="homepage.php">
+        <img src="Images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        Cinema
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="listaFilm.php">Film</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="listaSala.php">Sale</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="listaProgrammazione.php">Programmazioni</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="listaPrenotazioni.php">Prenotazioni</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="listaUtenti.php">Utenti</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="logout.php">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 <div class="container mt-3">
     <!--Show programmazione infos-->
@@ -91,15 +127,6 @@ if ($postiSala == $postiMax) {
                         <label for="ora">Ora</label>
                         <input type="text" class="form-control" id="ora" value="<?php echo $data->format('H:i') ?>"
                                readonly>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="prezzo">Prezzo</label>
-                        <input type="text" class="form-control" id="prezzo"
-                               value="<?php echo "Prezzo..." ?>" readonly>
                     </div>
                 </div>
             </div>

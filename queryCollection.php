@@ -96,6 +96,34 @@ function editCinema($IDCinema, $newCinema): bool
     return $connection->query($query);
 }
 
+//Get all cinemas
+function getAllCinemas(): array
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+
+    $query = "SELECT * FROM Cinema";
+    $data = $connection->query($query);
+
+    $cinemas = [];
+
+    while ($row = $data->fetch_assoc()) {
+        $cinema = new Cinema();
+
+        $cinema->setIdCinema($row['IDCinema']);
+        $cinema->setNome($row['Nome']);
+        $cinema->setEmail($row['Email']);
+        $cinema->setTelefono($row['Telefono']);
+        $cinema->setCitta($row['Citta']);
+        $cinema->setProvincia($row['Provincia']);
+        $cinema->setVia($row['Via']);
+        $cinema->setCap($row['CAP']);
+
+        $cinemas[] = $cinema;
+    }
+
+    return $cinemas;
+}
+
 #endregion
 
 #region FUNZIONI EVENTO
@@ -806,6 +834,29 @@ function editUtente($IDUtente, $newUtente): bool
     WHERE IDUtente=$IDUtente;";
 
     return $connection->query($query);
+}
+
+//Get Direttore of Cinema
+function getUtenteOfCinemaByRole($IDCinema, $IDFRuolo): Utente
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+
+    $query = "SELECT * FROM (Utente INNER JOIN UtenteCinema UC on Utente.IDUtente = UC.IDFUtente) WHERE IDFCinema=$IDCinema AND IDFRuolo=$IDFRuolo;";
+    $data = $connection->query($query);
+    $data = $data->fetch_assoc();
+
+    $utente = new Utente();
+
+    $utente->setIdUtente($data['IDUtente']);
+    $utente->setIdfRuolo($data['IDFRuolo']);
+    $utente->setNome($data['Nome']);
+    $utente->setCognome($data['Cognome']);
+    $utente->setUsername($data['Username']);
+    $utente->setPassword($data['Password']);
+    $utente->setEmail($data['Email']);
+    $utente->setCellulare($data['Cellulare']);
+
+    return $utente;
 }
 
 #endregion
