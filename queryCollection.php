@@ -8,6 +8,7 @@ require_once "Models/modelFilmGenere.php";
 require_once "Models/modelGenere.php";
 require_once "Models/modelPosto.php";
 require_once "Models/modelPrenotazione.php";
+require_once "Models/modelPrenotazionePosto.php";
 require_once "Models/modelProgrammazione.php";
 require_once "Models/modelRuolo.php";
 require_once "Models/modelSala.php";
@@ -574,11 +575,35 @@ function getPrenotazioniByProgrammazione($IDFProgrammazione): array
     return $prenotazioniArray;
 }
 
+//Get prenotazione by codice and datetime
+function getPrenotazioneByCodiceAndData($codice, $data): Prenotazione
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+    //Datetime to string
+    $data = $data->format('Y-m-d H:i:s');
+    $query = "SELECT * FROM Prenotazione WHERE Codice='" . $codice . "' AND DataPrenotazione='" . $data . "';";
+    $data = $connection->query($query);
+    $data = $data->fetch_assoc();
+
+    $prenotazione = new Prenotazione();
+
+    $prenotazione->setIdPrenotazione($data['IDPrenotazione']);
+    $prenotazione->setIdfUtente($data['IDFUtente']);
+    $prenotazione->setIdfProgrammazione($data['IDFProgrammazione']);
+    $prenotazione->setDataPrenotazione($data['DataPrenotazione']);
+    $prenotazione->setCodice($data['Codice']);
+
+    return $prenotazione;
+}
+
 function insertPrenotazione(Prenotazione $prenotazione): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+    //Datetime to string
+    $data = $prenotazione->getDataPrenotazione()->format('Y-m-d H:i:s');
+
     $query = "INSERT INTO Prenotazione (IDFUtente, IDFProgrammazione, DataPrenotazione, Codice)
-    VALUES (" . $prenotazione->getIdfUtente() . ", " . $prenotazione->getIdfProgrammazione() . ", '" . $prenotazione->getDataPrenotazione() . "', '" . $prenotazione->getCodice() . "');";
+    VALUES (" . $prenotazione->getIdfUtente() . ", " . $prenotazione->getIdfProgrammazione() . ", '" . $data . "', '" . $prenotazione->getCodice() . "');";
 
     return $connection->query($query);
 }

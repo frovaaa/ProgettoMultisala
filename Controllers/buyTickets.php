@@ -26,26 +26,36 @@ if (count($postiSelezionati) == 0) {
     exit();
 }
 
-$programmazione = getProgrammazioneById($_POST['IDProgrammazione']);
 
 //TODO: Pagina di acquisto
 
+$programmazione = getProgrammazioneById($_POST['IDProgrammazione']);
+$codice = generateRandomString(8);
+$now = new DateTime();
+
+$tempPrenotazione = new Prenotazione();
+$tempPrenotazione->setIdfUtente($utente->getIDUtente());
+$tempPrenotazione->setIdfProgrammazione($programmazione->getIDProgrammazione());
+$tempPrenotazione->setDataPrenotazione($now);
+$tempPrenotazione->setCodice(generateRandomString(8));
+insertPrenotazione($tempPrenotazione);
+
+$idfPrenotazione = getPrenotazioneByCodiceAndData($tempPrenotazione->getCodice(), $now)->getIdPrenotazione();
+
 foreach ($postiSelezionati as $posto) {
-    $tempPrenotazione = new Prenotazione();
+    $tempPrenotazionePosto = new PrenotazionePosto();
 
-    $tempPrenotazione->setIdfUtente($utente->getIDUtente());
-    $tempPrenotazione->setIdfPosto($posto->getIDPosto());
-    $tempPrenotazione->setIdfProgrammazione($programmazione->getIDProgrammazione());
-    $tempPrenotazione->setCodice(generateRandomString(8));
+    $tempPrenotazionePosto->setIdfPrenotazione($idfPrenotazione);
+    $tempPrenotazionePosto->setIdfPosto($posto->getIDPosto());
 
-    insertPrenotazione($tempPrenotazione);
+    insertPrenotazionePosto($tempPrenotazionePosto);
 }
 
 $_SESSION['log'] = "Prenotazione effettuata con successo";
 header("Location: ../listaFilm.php");
 exit();
 
-function generateRandomString($length)
+function generateRandomString($length): string
 {
     $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
