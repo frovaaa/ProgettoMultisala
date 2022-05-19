@@ -41,7 +41,7 @@
         window.location.href = "homepage.php";
     }
     const handlerProfile = function (e) {
-        window.location.href = "homepage.php";
+        window.location.href = "profile.php";
     }
     const handlerImmagine = function(e) {
         let obj = document.getElementById("c1");

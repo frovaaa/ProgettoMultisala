@@ -57,7 +57,7 @@ nav{
     color: rgba(0, 0, 0, 50%); text-decoration: none;
     font-weight: bold;
 
-    position: relative; top: 45%;
+    position: relative; top: 45%; left: 50%;
 }
 
 #menuProfileWrapper{
