@@ -5,8 +5,8 @@
                 <li id="logo">
                     <img src="Images/logo.png">
                 </li>
-                <li><a href="login.php">Tua</a></li>
-                <li><a href="registrazione.php">Mamma</a></li>
+                <li><a href="login.php">Login</a></li>
+                <li><a href="registrazione.php">Registrazione</a></li>
                 <li><a href="#">Ciao</a></li>
                 <li><a href="#">Come</a></li>
                 <li><a href="#">va</a></li>
