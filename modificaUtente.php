@@ -105,6 +105,7 @@ else {
                     </select>
                 </div>
                 <input type="hidden" name="id" value="<?php echo $utenteModifica->getIdUtente(); ?>">
+                <input type="hidden" name="sourceModifica" value="2">
                 <button type="submit" class="btn btn-primary mt-3">Modifica</button>
             </form>
         </div>

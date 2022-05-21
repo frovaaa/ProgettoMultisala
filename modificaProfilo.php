@@ -58,42 +58,57 @@ $utente = $_SESSION['Utente'];
         </ul>
     </div>
 </nav>
+<!--Edit profile-->
 <div class="container mt-3">
-    <!--Show alert in session-->
-    <?php
-    if (isset($_SESSION['log'])) {
-        echo "<div class='alert alert-primary' role='alert'>
-        <strong>Attenzione!</strong> " . $_SESSION['log'] . "
-    </div>";
-        unset($_SESSION['log']);
-    }
-    ?>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3>Profilo Utente</h3>
+                    <h3>Modifica profilo</h3>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img src="<?php echo $utente->getImmagineProfilo(); ?>" class="img-fluid"
-                                 alt="Immagine profilo non disponibile" width="256" height="256">
+                    <form action="verificaModificaUtente.php" method="post">
+                        <div class="form-group">
+                            <label for="nome">Nome</label>
+                            <input type="text" class="form-control" id="nome" name="nome"
+                                   value="<?php echo $utente->getNome() ?>">
                         </div>
-                        <div class="col-md-8">
-                            <h1><?php echo $utente->getNome(); ?></h1>
-                            <h2><?php echo $utente->getCognome(); ?></h2>
-                            <h3><?php echo $utente->getEmail(); ?></h3>
-                            <h3><?php echo getRuoloAsString($utente->getIdfRuolo()); ?></h3>
-                            <!--Bottone modifica utente-->
-                            <a href="modificaProfilo.php" class="btn btn-primary btn-lg btn-block">Modifica</a>
+                        <div class="form-group">
+                            <label for="cognome">Cognome</label>
+                            <input type="text" class="form-control" id="cognome" name="cognome"
+                                   value="<?php echo $utente->getCognome() ?>">
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username"
+                                   value="<?php echo $utente->getUsername() ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                   value="<?php echo $utente->getEmail() ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="cellulare">Cellulare</label>
+                            <input type="text" class="form-control" id="cellulare" name="cellulare"
+                                   value="<?php echo $utente->getCellulare() ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="immagineProfilo">Immagine Profilo</label>
+                            <input type="text" class="form-control" id="immagineProfilo" name="immagineProfilo"
+                                   value="<?php echo $utente->getImmagineProfilo() ?>">
+                        </div>
+                        <input type="hidden" name="sourceModifica" value="1">
+                        <button type="submit" class="btn btn-primary mt-3">Salva</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>

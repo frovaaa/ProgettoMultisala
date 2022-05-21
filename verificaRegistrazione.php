@@ -44,7 +44,7 @@ $mail_headers .= "Reply-To: " . $mail_mittente . "\r\n";
 // Content-type e charset (necessarie per i contenuti in HTML)
 $mail_headers .= "MIME-Version: 1.0\r\n";
 $mail_headers .= "Content-type: text/html; charset=iso-8859-1";
-//mail($mail_destinatario, $mail_oggetto, $mail_corpo, $mail_headers);    //Mando la mail
+//mail($mail_destinatario, $mail_oggetto, $mail_corpo, $mail_headers);    //Mando la mail   TODO: Abilitare
 #endregion
 
 header("Location: login.php");

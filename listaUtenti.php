@@ -30,6 +30,14 @@ if (!isAmministratore($_SESSION['Utente'])) {
 $utenti = getUtenti();
 ?>
 <div class="container">
+    <?php
+    if (isset($_SESSION['log'])) {
+        echo "<div class='alert alert-primary' role='alert'>
+        <strong>Attenzione!</strong> " . $_SESSION['log'] . "
+    </div>";
+        unset($_SESSION['log']);
+    }
+    ?>
     <div class="row">
         <div class="col-md-12">
             <h1>Lista Utenti</h1>
