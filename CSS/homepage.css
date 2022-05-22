@@ -2,7 +2,9 @@
     padding: 0;
     margin: 0;
 
-    font-family: Calibri!important;
+    font-family: Calibri, serif !important;
+
+    transition-duration: 0.2s;
 }
 body{ height: 100vh; }
 
@@ -10,6 +12,7 @@ body{ height: 100vh; }
 
 nav{
     width: 100%; height: 100px;
+    background-color: #212529;
 }
 
 #list{
@@ -31,20 +34,20 @@ nav{
 }
 #list a{
     text-decoration: none;
-    color: black;
 
     font-weight: bold;
-
+    color: white;
 }
 #logo {
     height: 80%;
 }
-#logo img{
+#logo img, svg{
     top: 50%; position: relative;
     transform: translateY(-50%);
 
     height: inherit; width: inherit;
 }
+
 
 /* Parte profilo */
 
@@ -54,7 +57,7 @@ nav{
     height: 100%; width: 20%;
 }
 #profile a{
-    color: rgba(0, 0, 0, 50%); text-decoration: none;
+    color: rgba(255, 255, 255, 70%); text-decoration: none;
     font-weight: bold;
 
     position: relative; top: 45%; left: 50%;
@@ -81,3 +84,28 @@ nav{
 
 
 /* Fine parte navbar */
+
+/* Up to Top */
+
+#upToTop{
+    width: 30px; height: 30px;
+    position: fixed;
+    bottom: 10px; right: 10px;
+
+    background-color: #212529;
+    border-radius: 5px;
+
+    transform: rotate(180deg);
+
+    cursor: pointer;
+
+    display: none;
+}
+
+/* Fine up to top */
+
+/* Parte main */
+
+main{
+    height: 1000px; width: 100%;
+}

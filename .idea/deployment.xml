@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="Bartollo" confirmBeforeUploading="false">
-    <option name="confirmBeforeUploading" value="false" />
+  <component name="PublishConfigData" autoUpload="Always" serverName="Bartolucci" showAutoUploadSettingsWarning="false">
     <serverData>
-      <paths name="Bartollo">
+      <paths name="Bartolucci">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="ServerBrutto">
         <serverdata>
           <mappings>
             <mapping deploy="/" local="$PROJECT_DIR$" web="/" />

@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="it">
 <head>
+    <link rel="stylesheet" type="text/css" href="CSS/homepage.css">
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -53,41 +54,7 @@ if ($postiSala == $postiMax) {
 ?>
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="homepage.php">
-        <img src="Images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
-        Cinema
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="listaFilm.php">Film</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="listaSala.php">Sale</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="listaProgrammazione.php">Programmazioni</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="listaPrenotazioni.php">Prenotazioni</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="listaUtenti.php">Utenti</a>
-            </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="logout.php">Logout</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<?php include "navBar.php" ?>
 
 <div class="container mt-3">
     <!--Show programmazione infos-->
