@@ -768,6 +768,12 @@ function insertRuolo(Ruolo $ruolo): bool
 
     return $connection->query($query);
 }
+function imageUpdate(String $url): bool
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+    $query = "UPDATE ";
+    return true;
+}
 
 function editRuolo($IDRuolo, $newRuolo): bool
 {

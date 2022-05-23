@@ -37,11 +37,13 @@ $utente = $_SESSION['Utente'];
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <div id="imageSelector">
-                                <img src="<?php echo $utente->getImmagineProfilo(); ?>"
-                                     id="imgContainer">
-                                <input type="file" accept="image/*" class="input-file" id="imgInput">
-                            </div>
+                            <form id="imgSave" method="post" action="salvataggioImmagine.php" enctype="multipart/form-data">
+                                <div id="imageSelector">
+                                    <img src="<?php echo $utente->getImmagineProfilo(); ?>"
+                                         id="imgContainer">
+                                    <input type="file" accept="image/*" class="input-file" id="imgInput" name="imgCaricata">
+                                </div>
+                            </form>
                         </div>
                         <div class="col-md-8">
                             <h1><?php echo $utente->getNome(); ?></h1>
@@ -64,21 +66,15 @@ $utente = $_SESSION['Utente'];
 
 <script>
     const input = document.getElementById("imgInput");
+    const form = document.getElementById("imgSave");
 
     const handler = function (e) {
-        let obj = input.files[0];
-        let reader = new FileReader();
+        let obj = e.target.files[0];
 
-        reader.onload = function(event) {
-            let dataURL = event.target.result;
-            let temp = new Image();
-            temp.src = dataURL;
-            console.log(temp.height);
-
-            let context = document.getElementById("test").getContext('2d');
-            context.drawImage(temp, temp.width, temp.height);
-        };
-        reader.readAsDataURL(obj);
+        if(obj.size < 100000000){
+            console.log("Immagine minore di 100Mb");
+            form.submit();
+        }
     }
 
     input.addEventListener("input", handler);
