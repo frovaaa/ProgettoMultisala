@@ -22,13 +22,15 @@
 
         <g transform="translate(0.000000,20.000000) scale(0.100000,-0.100000)"
            fill="#FFFFFF" stroke="none">
-            <path d="M20 128 c0 -15 63 -68 80 -68 17 0 80 53 80 68 0 19 -14 14 -40 -13
--13 -14 -31 -25 -40 -25 -9 0 -27 11 -40 25 -26 27 -40 32 -40 13z"/>
+            <path d="M20 128 c0 -15 63 -68 80 -68 17 0 80 53 80 68 0 19 -14 14 -40 -13 -13 -14 -31 -25 -40 -25 -9 0 -27 11 -40 25 -26 27 -40 32 -40 13z"/>
         </g>
     </svg>
 </div>
 
 <main>
+    <div id="selectMultisala">
+
+    </div>
     <div>
 
     </div>
@@ -47,7 +49,7 @@
     }
     const click = function (e){
         window.tran
-        window.scroll(0, 0);
+        window.scrollTo({top: 0, behavior: "smooth"});
         document.getElementById("upToTop").style.display = "none";
     }
 

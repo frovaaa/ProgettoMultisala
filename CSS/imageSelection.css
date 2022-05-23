@@ -1,0 +1,8 @@
+#imageSelector{
+    height: 256px; width: 256px;
+}
+
+#imgContainer{
+    height: inherit; width: inherit;
+}
+

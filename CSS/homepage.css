@@ -41,7 +41,7 @@ nav{
 #logo {
     height: 80%;
 }
-#logo img, svg{
+#logo img, #logo svg{
     top: 50%; position: relative;
     transform: translateY(-50%);
 
@@ -100,6 +100,11 @@ nav{
     cursor: pointer;
 
     display: none;
+}
+#upToTop svg{
+    position: relative;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* Fine up to top */

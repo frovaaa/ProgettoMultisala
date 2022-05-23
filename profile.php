@@ -2,6 +2,8 @@
 <html lang="it">
 <head>
     <link rel="stylesheet" type="text/css" href="CSS/homepage.css">
+    <link rel="stylesheet" type="text/css" href="CSS/imageSelection.css">
+
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -26,15 +28,6 @@ $utente = $_SESSION['Utente'];
 ?>
 <?php include "navBar.php" ?>
 <div class="container mt-3">
-    <!--Show alert in session-->
-    <?php
-    if (isset($_SESSION['log'])) {
-        echo "<div class='alert alert-primary' role='alert'>
-        <strong>Attenzione!</strong> " . $_SESSION['log'] . "
-    </div>";
-        unset($_SESSION['log']);
-    }
-    ?>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -44,8 +37,11 @@ $utente = $_SESSION['Utente'];
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="<?php echo $utente->getImmagineProfilo(); ?>" class="img-fluid"
-                                 alt="Immagine profilo non disponibile" width="256" height="256">
+                            <div id="imageSelector">
+                                <img src="<?php echo $utente->getImmagineProfilo(); ?>"
+                                     id="imgContainer">
+                                <input type="file" accept="image/*" class="input-file" id="imgInput">
+                            </div>
                         </div>
                         <div class="col-md-8">
                             <h1><?php echo $utente->getNome(); ?></h1>
@@ -61,6 +57,32 @@ $utente = $_SESSION['Utente'];
         </div>
     </div>
 </div>
+
+<canvas id="test">
+
+</canvas>
+
+<script>
+    const input = document.getElementById("imgInput");
+
+    const handler = function (e) {
+        let obj = input.files[0];
+        let reader = new FileReader();
+
+        reader.onload = function(event) {
+            let dataURL = event.target.result;
+            let temp = new Image();
+            temp.src = dataURL;
+            console.log(temp.height);
+
+            let context = document.getElementById("test").getContext('2d');
+            context.drawImage(temp, temp.width, temp.height);
+        };
+        reader.readAsDataURL(obj);
+    }
+
+    input.addEventListener("input", handler);
+</script>
 
 </body>
 </html>
