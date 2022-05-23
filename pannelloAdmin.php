@@ -23,7 +23,7 @@ if (!isset($_SESSION['Utente'])) {
     header("Location: login.php");
 }
 ?>
-<!-- Navigation -->
+<!-- Navbar -->
 <?php include "navBar.php" ?>
 <!-- Fine navbar -->
 
