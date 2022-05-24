@@ -29,10 +29,29 @@
 
 <main>
     <div id="selectMultisala">
+        <label>I nostri cinema </label>
+        <select>
+            <?php
+                $cinema = getNomeCinema();
 
+                foreach ($cinema as $t){
+                    echo("<option value='".$t."'>
+                        ". $t ."
+                    </option>");
+                }
+            ?>
+        </select>
     </div>
-    <div>
+    <div id="nostriFilm">
+        <div id="title">
+            <h1>I nostri film</h1>
+        </div>
+        <div id="cards">
+            <div class="card">
+                <img src="https://www.ilgiornaledellarte.com/immagini//IMG20210901123132715_1000.jpeg">
 
+            </div>
+        </div>
     </div>
 </main>
 

@@ -109,6 +109,44 @@ nav{
 
 /* Fine up to top */
 
+/* Parte selezione multisala */
+
+#selectMultisala{
+    width: 100%; height: 2rem;
+}
+
+/* Parte i nostri film */
+
+#nostriFilm{
+    width: 100%; height: auto;
+    background-color: aqua;
+}
+#title{
+    margin-bottom: 25px;
+}
+#title h1{
+    color: black;
+
+    margin-left: 50%; width: auto;
+    transform: translateX(-50%);
+
+    text-align: center;
+}
+
+#cards{
+
+}
+.card{
+    width: 19%;
+
+    float: left; margin: auto;
+}
+.card img{
+    width: 100%;
+
+    border-radius: 5%;
+}
+
 /* Parte main */
 
 main{
