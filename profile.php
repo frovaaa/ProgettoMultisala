@@ -37,11 +37,13 @@ $utente = $_SESSION['Utente'];
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <form id="imgSave" method="post" action="salvataggioImmagine.php" enctype="multipart/form-data">
+                            <form id="imgSave" method="post" action="salvataggioImmagine.php"
+                                  enctype="multipart/form-data">
                                 <div id="imageSelector">
                                     <img src="<?php echo $utente->getImmagineProfilo(); ?>"
                                          id="imgContainer">
-                                    <input type="file" accept="image/*" class="input-file" id="imgInput" name="imgCaricata">
+                                    <input type="file" accept="image/*" class="input-file" id="imgInput"
+                                           name="imgCaricata">
                                 </div>
                             </form>
                         </div>
@@ -60,7 +62,7 @@ $utente = $_SESSION['Utente'];
     </div>
 </div>
 
-<canvas id="test">
+<canvas id="output" height="500 " width="500">
 
 </canvas>
 
@@ -68,11 +70,32 @@ $utente = $_SESSION['Utente'];
     const input = document.getElementById("imgInput");
     const form = document.getElementById("imgSave");
 
-    const handler = function (e) {
-        let obj = e.target.files[0];
+    const handler = async function (e) {
+        let obj = input.files[0];
 
-        if(obj.size < 100000000){
-            console.log("Immagine minore di 100Mb");
+        if (obj.size < 100000000) {
+            let img = new Image();
+            let blob = URL.createObjectURL(obj);
+            img.src = blob;
+
+            img.onload = function () {
+                URL.revokeObjectURL(this.src);
+                const canvas = document.createElement("canvas");
+                canvas.width = img.width; canvas.height = img.height;
+                const ctx = canvas.getContext("2d");
+
+                ctx.drawImage(img, 0, 0, img.width, img.height);
+
+                let output = document.getElementById("output");
+                let outCtx = output.getContext("2d");
+
+                if(ctx.canvas.height < ctx.canvas.width){
+                    outCtx.drawImage(img, ((ctx.canvas.width - ctx.canvas.height)/2), 0, ctx.canvas.height, ctx.canvas.height, 0, 0);
+                }else{
+                    outCtx.drawImage(img, 0, ((ctx.canvas.height - ctx.canvas.width)/2), ctx.canvas.width, ctx.canvas.width, 0, 0);
+                }
+            }
+
             form.submit();
         }
     }
