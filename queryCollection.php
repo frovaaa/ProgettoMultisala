@@ -35,6 +35,18 @@ function getAttoreById($IDAttore): Attore
     return $attore;
 }
 
+//get attore string by filmID
+function getStringAttoriOfFilmID($IDFilm): string
+{
+    $attoriFilm = getFilmAttoreByFilm($IDFilm);
+    //Foreach loop echo attore of attoriFilm
+    $stringaAttori = "";
+    foreach ($attoriFilm as $attore) {
+        $stringaAttori .= getAttoreById($attore->getIdfAttore())->getNome() . " / ";
+    }
+    return substr($stringaAttori, 0, -3);
+}
+
 function insertAttore(Attore $attore): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
@@ -77,7 +89,9 @@ function getCinemaById($IDCinema): Cinema
 
     return $cinema;
 }
-function getNomeCinema(): array{
+
+function getNomeCinema(): array
+{
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
     $query = "SELECT IDCinema, Nome FROM Cinema";
@@ -85,7 +99,7 @@ function getNomeCinema(): array{
 
     $cinemas = [];
 
-    while ($row = $data->fetch_assoc()){
+    while ($row = $data->fetch_assoc()) {
         $cinema = new Cinema();
 
         $cinema->setNome($row["Nome"]);
@@ -199,6 +213,10 @@ function getFilmById($IDFilm): Film
     $film->setTitolo($data['Titolo']);
     $film->setTrama($data['Trama']);
     $film->setCopertina($data['Copertina']);
+    $film->setRegista($data['Regista']);
+    $film->setDurata($data['Durata']);
+    $film->setTrailer($data['Trailer']);
+    $film->setAnno($data['Anno']);
 
     return $film;
 }
@@ -217,6 +235,10 @@ function getFilms(): array
         $film->setTitolo($riga['Titolo']);
         $film->setTrama($riga['Trama']);
         $film->setCopertina($riga['Copertina']);
+        $film->setRegista($riga['Regista']);
+        $film->setDurata($riga['Durata']);
+        $film->setTrailer($riga['Trailer']);
+        $film->setAnno($riga['Anno']);
 
 
         $filmArray[] = $film;
@@ -224,11 +246,12 @@ function getFilms(): array
 
     return $filmArray;
 }
+
 function getFilmsLimit($limit): array
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
-    $query = "SELECT * FROM Film Limit ". $limit;
+    $query = "SELECT * FROM Film Limit " . $limit;
     $data = $connection->query($query);
 
     $filmArray = [];
@@ -239,6 +262,10 @@ function getFilmsLimit($limit): array
         $film->setTitolo($riga['Titolo']);
         $film->setTrama($riga['Trama']);
         $film->setCopertina($riga['Copertina']);
+        $film->setRegista($riga['Regista']);
+        $film->setDurata($riga['Durata']);
+        $film->setTrailer($riga['Trailer']);
+        $film->setAnno($riga['Anno']);
 
         $filmArray[] = $film;
     }
@@ -249,8 +276,8 @@ function getFilmsLimit($limit): array
 function insertFilm(Film $film): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
-    $query = "INSERT INTO Film (Titolo, Trama, Copertina)
-    VALUES ('" . $film->getTitolo() . "', '" . $film->getTrama() . "', '" . $film->getCopertina() . "');";
+    $query = "INSERT INTO Film (Titolo, Trama, Copertina, Regista, Durata, Trailer, Anno)
+    VALUES ('" . $film->getTitolo() . "','" . $film->getTrama() . "','" . $film->getCopertina() . "','" . $film->getRegista() . "'," . $film->getDurata() . ",'" . $film->getTrailer() . "','" . $film->getAnno() . "');";
 
     return $connection->query($query);
 }
@@ -259,7 +286,7 @@ function editFilm($IDFilm, $newFilm): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
     $query = "UPDATE Film 
-    SET Titolo='" . $newFilm->getTitolo() . "', Trama='" . $newFilm->getTrama() . "', Copertina='" . $newFilm->getCopertina() . "'
+    SET Titolo='" . $newFilm->getTitolo() . "', Trama='" . $newFilm->getTrama() . "', Copertina='" . $newFilm->getCopertina() . "', Regista='" . $newFilm->getRegista() . "', Durata=" . $newFilm->getDurata() . ", Trailer='" . $newFilm->getTrailer() . "', Anno='" . $newFilm->getAnno() . "'
     WHERE IDFilm=$IDFilm;";
 
     return $connection->query($query);
@@ -411,6 +438,41 @@ function getGenereById($IDGenere): Genere
     $genere->setLimitazioni($data['Limitazioni']);
 
     return $genere;
+}
+
+//Get all genere
+function getAllGenere(): array
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+
+    $query = "SELECT * FROM Genere";
+    $data = $connection->query($query);
+    if (!$data) return [];
+
+    $resultArray = [];
+
+    while ($riga = $data->fetch_assoc()) {
+        $genere = new Genere();
+
+        $genere->setIdGenere($riga['IDGenere']);
+        $genere->setNome($riga['Nome']);
+        $genere->setLimitazioni($riga['Limitazioni']);
+
+        $resultArray[] = $genere;
+    }
+
+    return $resultArray;
+}
+
+function getStringGeneriOfFilm($IDFilm): string
+{
+    $generiFilm = getFilmGenereByFilm($IDFilm);
+    //Foreach loop echo genere of generiFilm
+    $stringaGeneri = "";
+    foreach ($generiFilm as $genere) {
+        $stringaGeneri .= getGenereById($genere->getIdfGenere())->getNome() . " / ";
+    }
+    return substr($stringaGeneri, 0, -3);
 }
 
 function insertGenere(Genere $genere): bool
@@ -809,7 +871,8 @@ function insertRuolo(Ruolo $ruolo): bool
 
     return $connection->query($query);
 }
-function imageUpdate(String $url): bool
+
+function imageUpdate(string $url): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
     $query = "UPDATE ";

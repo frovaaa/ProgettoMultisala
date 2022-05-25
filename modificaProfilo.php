@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="it">
 <head>
-    <link rel="stylesheet" type="text/css" href="CSS/homepage.css">
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -11,6 +10,8 @@
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" type="text/css" href="CSS/navbar.css">
     <title>Profilo</title>
 </head>
 <body>

@@ -6,6 +6,10 @@ class Film {
   private $titolo;
   private $trama;
   private $copertina;
+  private $regista;
+  private $durata;
+  private $trailer;
+  private $anno;
 
   public function getIdFilm() {
     return $this->idFilm;
@@ -37,6 +41,38 @@ class Film {
 
   public function setCopertina($copertina) {
     $this->copertina = $copertina;
+  }
+
+  public function getRegista() {
+    return $this->regista;
+  }
+
+  public function setRegista($regista) {
+    $this->regista = $regista;
+  }
+
+  public function getDurata() {
+    return $this->durata;
+  }
+
+  public function setDurata($durata) {
+    $this->durata = $durata;
+  }
+
+  public function getTrailer() {
+    return $this->trailer;
+  }
+
+  public function setTrailer($trailer) {
+    $this->trailer = $trailer;
+  }
+
+  public function getAnno() {
+    return $this->anno;
+  }
+
+  public function setAnno($anno) {
+    $this->anno = $anno;
   }
 
 }

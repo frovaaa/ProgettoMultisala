@@ -11,8 +11,8 @@
 </head>
 <body>
 <?php
-    include "queryCollection.php";
-    session_start();
+include "queryCollection.php";
+session_start();
 ?>
 <?php include "navBar.php" ?>
 
@@ -29,35 +29,43 @@
 </div>
 
 <main>
+    <?php
+    if (isset($_SESSION['log'])) {
+        echo "<div class='alert alert-primary' role='alert'>
+        <strong>Attenzione!</strong> " . $_SESSION['log'] . "
+    </div>";
+        unset($_SESSION['log']);
+    }
+    ?>
     <div id="selectMultisala">
         <label>I nostri cinema </label>
         <select id="cinemaSelect">
             <?php
-                $cinema = getNomeCinema();
-                $id = null;
+            $cinema = getNomeCinema();
+            $id = null;
 
-                if($_GET["id"] != null){
-                    $id = $_GET["id"];
-                    foreach ($cinema as $t){
-                        if($t->getIdCinema() == $id){
-                            echo("<option value='".$t->getIdCinema()."' selected>
-                                ". $t->getNome() ."
+            if ($_GET["id"] != null) {
+                $id = $_GET["id"];
+                foreach ($cinema as $t) {
+                    if ($t->getIdCinema() == $id) {
+                        echo("<option value='" . $t->getIdCinema() . "' selected>
+                                " . $t->getNome() . "
                             </option>");
-                        }else{
-                            echo("<option value='".$t->getIdCinema()."'>
-                                ". $t->getNome() ."
-                            </option>");
-                        }
-                    }
-                }else{
-                    echo ("ciao");
-                    $id = $cinema[0]->getIdCinema();
-                    foreach ($cinema as $t){
-                        echo("<option value='".$t->getIdCinema()."'>
-                                ". $t->getNome() ."
+                    } else {
+                        echo("<option value='" . $t->getIdCinema() . "'>
+                                " . $t->getNome() . "
                             </option>");
                     }
                 }
+            } else {
+                echo("ciao");
+                $id = $cinema[0]->getIdCinema();
+                foreach ($cinema as $t) {
+                    echo("<option value='" . $t->getIdCinema() . "'>
+                                " . $t->getNome() . "
+                            </option>");
+                }
+            }
             ?>
         </select>
     </div>
@@ -68,23 +76,24 @@
         <div id="cards">
 
             <?php
-                $films = getFilmsLimit(4);
+            $films = getFilmsLimit(4);
 
-                foreach ($films as $film){
-                    echo(
-                        '<div class="card" style="background-image: url('. $film->getCopertina() .')">
+            foreach ($films as $film) {
+                echo(
+                    '<div class="card" style="background-image: url(' . $film->getCopertina() . ')">
                             <div class="scopriDipiu">
                                 <div class="content">
-                                    <p>'. $film->getTitolo() .'</p>
-                                    <a href="infoFilm.php?idfilm='.$film->getIdFilm().'">Scopri di piu..</a>
+                                    <p>' . $film->getTitolo() . '</p>
+                                    <a href="infoFilm.php?idFilm=' . $film->getIdFilm() . '">Scopri di piu..</a>
                                 </div>
                             </div>
                         </div>'
-                    );
-                }
+                );
+            }
             ?>
 
-            <div class="card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-rgSfqIy93HiXkRq53-XbMlkZsIMoRUIWHpKtPZRbsLeLPY4K');">
+            <div class="card"
+                 style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-rgSfqIy93HiXkRq53-XbMlkZsIMoRUIWHpKtPZRbsLeLPY4K');">
                 <div class="content">
                     <a href="listaFilm.php">Visualizza altri</a>
                 </div>
@@ -97,14 +106,14 @@
 </body>
 
 <script>
-    const scroll = function (e){
-        if(window.scrollY > 90){
+    const scroll = function (e) {
+        if (window.scrollY > 90) {
             document.getElementById("upToTop").style.display = "block";
-        }else{
+        } else {
             document.getElementById("upToTop").style.display = "none";
         }
     }
-    const click = function (e){
+    const click = function (e) {
         window.tran
         window.scrollTo({top: 0, behavior: "smooth"});
         document.getElementById("upToTop").style.display = "none";
@@ -112,7 +121,7 @@
     const x = function (e) {
         let cards = document.getElementsByClassName("card");
 
-        for (let i = 0; i < cards.length; i ++){
+        for (let i = 0; i < cards.length; i++) {
             let w = cards[i].clientWidth;
             cards[i].style.height = ((w / 9) * 16) + "px";
         }
