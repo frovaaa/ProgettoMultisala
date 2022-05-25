@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="it">
 <head>
-    <link rel="stylesheet" type="text/css" href="CSS/homepage.css">
+    <link rel="stylesheet" type="text/css" href="CSS/navbar.css">
     <link rel="stylesheet" type="text/css" href="CSS/imageSelection.css">
 
     <meta charset="UTF-8">
