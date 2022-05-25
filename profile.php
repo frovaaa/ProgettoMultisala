@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="it">
 <head>
-    <link rel="stylesheet" type="text/css" href="CSS/homepage.css">
+    <link rel="stylesheet" type="text/css" href="CSS/navbar.css">
     <link rel="stylesheet" type="text/css" href="CSS/imageSelection.css">
 
     <meta charset="UTF-8">
@@ -28,6 +28,14 @@ $utente = $_SESSION['Utente'];
 ?>
 <?php include "navBar.php" ?>
 <div class="container mt-3">
+    <?php
+    if (isset($_SESSION['log'])) {
+        echo "<div class='alert alert-primary' role='alert'>
+        <strong>Attenzione!</strong> " . $_SESSION['log'] . "
+    </div>";
+        unset($_SESSION['log']);
+    }
+    ?>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -41,7 +49,7 @@ $utente = $_SESSION['Utente'];
                                   enctype="multipart/form-data">
                                 <div id="imageSelector">
                                     <img src="<?php echo $utente->getImmagineProfilo(); ?>"
-                                         id="imgContainer">
+                                         id="imgContainer" alt="Immagine non disponibile">
                                     <input type="file" accept="image/*" class="input-file" id="imgInput"
                                            name="imgCaricata">
                                 </div>

@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="it">
 <head>
+    <link rel="stylesheet" type="text/css" href="CSS/navbar.css">
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -34,7 +35,8 @@ else {
     exit();
 }
 ?>
-<div class="container">
+<?php include "navBar.php"?>
+<div class="container mt-3">
     <div class="row">
         <div class="col-md-12">
             <h1 class="text-center">Modifica Utente</h1>

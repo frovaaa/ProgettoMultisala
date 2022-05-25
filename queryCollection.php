@@ -1009,6 +1009,14 @@ function isAttivo($Utente): bool
     else return false;
 }
 
+//Delete utente
+function deleteUtente($IDUtente): bool
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+    $query = "DELETE FROM Utente WHERE IDUtente=$IDUtente;";
+    return $connection->query($query);
+}
+
 #region ROLE_IDENTIFICATION
 function isCliente($Utente): bool
 {

@@ -9,7 +9,7 @@
     $newProfile = "profileImages/" . $utente->getIDUtente() . ".png";
 
     if(copy($immagine, $newProfile)){
-        $_SESSION["log"] = "Successo";
+        $_SESSION["log"] = "Immagine modificata correttamente!";
         $utente->setImmagineProfilo($newProfile);
 
         editUtente($utente->getIDUtente(), $utente);

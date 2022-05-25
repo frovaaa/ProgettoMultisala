@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="it">
 <head>
+    <link rel="stylesheet" type="text/css" href="CSS/navbar.css">
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -29,7 +30,8 @@ if (!isAmministratore($_SESSION['Utente'])) {
 }
 $utenti = getUtenti();
 ?>
-<div class="container">
+<?php include "navBar.php" ?>
+<div class="container mt-3">
     <?php
     if (isset($_SESSION['log'])) {
         echo "<div class='alert alert-primary' role='alert'>
@@ -51,8 +53,8 @@ $utenti = getUtenti();
                     <th scope="col">Email</th>
                     <th scope="col">Cellulare</th>
                     <th scope="col">Ruolo</th>
-                    <th scope="col">Attivo</th>
                     <th scope="col">Modifica</th>
+                    <th scope="col">Lock</th>
                     <th scope="col">Elimina</th>
                 </tr>
                 </thead>
@@ -65,7 +67,7 @@ $utenti = getUtenti();
                     $email = $utente->getEmail();
                     $cellulare = $utente->getCellulare();
                     $tipoUtente = getRuoloAsString($utente->getIdfRuolo());
-                    $attivo = (isAttivo($utente)) ? "Si" : "No";
+                    $attivo = isAttivo($utente);
                     $id = $utente->getIdUtente();
 
                     echo "<tr>";
@@ -76,15 +78,20 @@ $utenti = getUtenti();
                     echo "<td>$email</td>";
                     echo "<td>$cellulare</td>";
                     echo "<td>$tipoUtente</td>";
-                    echo "<td>$attivo</td>";
                     echo "<td><form action='modificaUtente.php' method='post'>
                             <input type='hidden' name='id' value='$id'>
+                            <input type='hidden' name='redirect' value='listaUtenti.php'>
                             <button type='submit' class='btn btn-primary'><i class='bi bi-pencil'></i></button>
                         </form></td>";
-                    echo "<td><form action='eliminaUtente.php' method='post'>
+                    echo "<td><form action='verificaCambioStatoUtente.php' method='post'>
                             <input type='hidden' name='id' value='$id'>
-                            <button type='submit' class='btn btn-danger'><i class='bi bi-trash'></i></button>
-                        </form></td>";
+                            <input type='hidden' name='redirect' value='listaUtenti.php'>
+                            <input type='hidden' name='attivo' value='" . (($attivo) ? 0 : 1) . "'>";
+                    echo "<button type='submit' class='btn btn-warning'><i class='" . (($attivo) ? "bi bi-lock" : "bi bi-unlock") . "'></i></button></form></td>";
+                    echo "<td><form action='verificaEliminaUtente.php' method='post'>
+                            <input type='hidden' name='id' value='$id'>
+                            <input type='hidden' name='redirect' value='listaUtenti.php'>
+                            <button type='submit' class='btn btn-danger'><i class='bi bi-trash'></i></button></form></td>";
                     echo "</tr>";
                 }
                 ?>

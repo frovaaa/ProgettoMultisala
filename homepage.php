@@ -38,23 +38,24 @@
 
                 if($_GET["id"] != null){
                     $id = $_GET["id"];
-                    foreach ($cinema as $t){ ?>
-                        <option value=<?php $t->getIdCinema() ?>
-                        <?php
-                            if($t->getIdCinema() == $id) echo (" selected");
-                        ?>
-                        >
-                            <?php $t->getNome() ?>
-                        </option>
-                        <?php
+                    foreach ($cinema as $t){
+                        if($t->getIdCinema() == $id){
+                            echo("<option value='".$t->getIdCinema()."' selected>
+                                ". $t->getNome() ."
+                            </option>");
+                        }else{
+                            echo("<option value='".$t->getIdCinema()."'>
+                                ". $t->getNome() ."
+                            </option>");
+                        }
                     }
                 }else{
                     echo ("ciao");
                     $id = $cinema[0]->getIdCinema();
                     foreach ($cinema as $t){
                         echo("<option value='".$t->getIdCinema()."'>
-                        ". $t->getNome() ."
-                    </option>");
+                                ". $t->getNome() ."
+                            </option>");
                     }
                 }
             ?>
@@ -73,17 +74,17 @@
                     echo(
                         '<div class="card" style="background-image: url('. $film->getCopertina() .')">
                             <div class="scopriDipiu">
-                                <p>'. $film->getTitolo() .'</p>
-                                <a href="">Scopri di piu..</a>
+                                <div class="content">
+                                    <p>'. $film->getTitolo() .'</p>
+                                    <a href="">Scopri di piu..</a>
+                                </div>
                             </div>
                         </div>'
                     );
                 }
             ?>
 
-            <div class="card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-rgSfqIy93HiXkRq53-XbMlkZsIMoRUIWHpKtPZRbsLeLPY4K">
-                
+            <div class="card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-rgSfqIy93HiXkRq53-XbMlkZsIMoRUIWHpKtPZRbsLeLPY4K');">
             </div>
         </div>
     </div>
