@@ -10,7 +10,10 @@
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
-    <title>Programmazioni</title>
+    <title>Lista film</title>
+
+    <link rel="stylesheet" type="text/css" href="CSS/listaFilm.css">
+    <link rel="stylesheet" type="text/css" href="CSS/navbar.css">
 </head>
 <body>
 <?php
@@ -19,7 +22,7 @@ session_start();
 
 $arrayFilm = getFilms();
 ?>
-
+<?php include "navBar.php"?>
 <div class="container mt-3">
     <?php
     //Foreachloop with arrayFilm

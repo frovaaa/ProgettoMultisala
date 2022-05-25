@@ -2,6 +2,7 @@
 <html lang="it">
 <head>
     <link rel="stylesheet" type="text/css" href="CSS/homepage.css">
+    <link rel="stylesheet" type="text/css" href="CSS/navbar.css">
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -30,14 +31,31 @@
 <main>
     <div id="selectMultisala">
         <label>I nostri cinema </label>
-        <select>
+        <select id="cinemaSelect">
             <?php
                 $cinema = getNomeCinema();
+                $id = null;
 
-                foreach ($cinema as $t){
-                    echo("<option value='".$t."'>
-                        ". $t ."
+                if($_GET["id"] != null){
+                    $id = $_GET["id"];
+                    foreach ($cinema as $t){ ?>
+                        <option value=<?php $t->getIdCinema() ?>
+                        <?php
+                            if($t->getIdCinema() == $id) echo (" selected");
+                        ?>
+                        >
+                            <?php $t->getNome() ?>
+                        </option>
+                        <?php
+                    }
+                }else{
+                    echo ("ciao");
+                    $id = $cinema[0]->getIdCinema();
+                    foreach ($cinema as $t){
+                        echo("<option value='".$t->getIdCinema()."'>
+                        ". $t->getNome() ."
                     </option>");
+                    }
                 }
             ?>
         </select>
@@ -53,8 +71,11 @@
 
                 foreach ($films as $film){
                     echo(
-                        '<div class="card">
-                            <img src="'. $film->getCopertina() .'">
+                        '<div class="card" style="background-image: url('. $film->getCopertina() .')">
+                            <div class="scopriDipiu">
+                                <p>'. $film->getTitolo() .'</p>
+                                <a href="">Scopri di piu..</a>
+                            </div>
                         </div>'
                     );
                 }
@@ -62,10 +83,7 @@
 
             <div class="card">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-rgSfqIy93HiXkRq53-XbMlkZsIMoRUIWHpKtPZRbsLeLPY4K">
-                <div class="scopriDipiu">
-                    <p>Title</p>
-                    <a href="">Scopri di piu'..</a>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -88,13 +106,24 @@
         document.getElementById("upToTop").style.display = "none";
     }
     const x = function (e) {
-      
+        let cards = document.getElementsByClassName("card");
+
+        for (let i = 0; i < cards.length; i ++){
+            let w = cards[i].clientWidth;
+            cards[i].style.height = ((w / 9) * 16) + "px";
+        }
     }
 
     window.addEventListener("scroll", scroll);
     window.addEventListener("load", x);
     window.addEventListener("resize", x);
     document.getElementById("upToTop").addEventListener("click", click);
+
+    document.getElementById("cinemaSelect").addEventListener("change", (e) => {
+        let idcinema = e.target.value;
+
+        window.location.href = "homepage.php?id=" + idcinema;
+    });
 </script>
 
 </html>

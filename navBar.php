@@ -40,7 +40,7 @@ m-57 -47 c28 -15 34 -15 68 1 27 12 43 14 56 7 15 -8 10 -14 -36 -40 -52 -30
                 </li>
                 <li> <a href="listaFilm.php">Film</a> </li>
                 <li> <a href="listaSala.php">Sale</a> </li>
-                <li> <a href="listaProgrammazione.php">Programmazioni</a> </li>
+                <li> <a href="listaFilm.php">Programmazioni</a> </li>
                 <li> <a href="listaPrenotazioni.php">Prenotazioni</a> </li>
                 <li> <a href="listaUtenti.php">Utenti</a> </li>
             </ul>
@@ -80,10 +80,11 @@ m-57 -47 c28 -15 34 -15 68 1 27 12 43 14 56 7 15 -8 10 -14 -36 -40 -52 -30
         let obj = document.getElementById("c1");
 
         obj.style.width = obj.height + "px";
+
+        document.getElementById("c1").addEventListener("click", handlerProfile);
+        document.getElementById("logo").addEventListener("click", handlerClickHome);
+        window.addEventListener("resize", handlerImmagine);
     }
 
-    document.getElementById("c1").addEventListener("click", handlerProfile);
-    document.getElementById("logo").addEventListener("click", handlerClickHome);
-    window.addEventListener("resize", handlerImmagine);
     window.addEventListener("load", handlerImmagine);
 </script>

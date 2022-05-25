@@ -80,16 +80,21 @@ function getCinemaById($IDCinema): Cinema
 function getNomeCinema(): array{
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
-    $query = "SELECT Nome FROM Cinema";
+    $query = "SELECT IDCinema, Nome FROM Cinema";
     $data = $connection->query($query);
 
-    $cinema = array();
+    $cinemas = [];
 
     while ($row = $data->fetch_assoc()){
-        array_push($cinema, $row["Nome"]);
+        $cinema = new Cinema();
+
+        $cinema->setNome($row["Nome"]);
+        $cinema->setIdCinema($row["IDCinema"]);
+
+        $cinemas[] = $cinema;
     }
 
-    return $cinema;
+    return $cinemas;
 }
 
 function insertCinema(Cinema $cinema): bool
