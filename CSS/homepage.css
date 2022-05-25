@@ -37,6 +37,11 @@ body{ height: 100vh; }
 #selectMultisala{
     width: 80%; height: 5rem;
     left: 50%; position: relative;
+    transform: translateX(-50%);
+}
+#cinemaSelect{
+    border: none;
+
 }
 
 
@@ -70,7 +75,7 @@ body{ height: 100vh; }
     float: left;
 
     background-repeat: round;
-    border-radius: 3%;
+    border-radius: 15px;
 }
 
 .scopriDipiu{
@@ -81,11 +86,16 @@ body{ height: 100vh; }
 
     text-align: center;
     color: white;
-    background-color: rgba(0, 0, 0, 35%);
+    background-color: rgba(0, 0, 0, 40%);
 
     border-radius: inherit;
+    opacity: 0;
 
-
+    font-size: medium;
+}
+.scopriDipiu:hover{
+    transition-duration: 0.3s;
+    opacity: 1;
 }
 .scopriDipiu a{
     text-decoration: none;
@@ -97,6 +107,10 @@ body{ height: 100vh; }
     top: 50%; left: 50%;
     position: relative;
     transform: translate(-50%, -50%);
+}
+.content a{
+    padding: 5px; margin: 10px;
+    border-radius: 5px;
 }
 
 /* Parte main */

@@ -76,7 +76,7 @@
                             <div class="scopriDipiu">
                                 <div class="content">
                                     <p>'. $film->getTitolo() .'</p>
-                                    <a href="">Scopri di piu..</a>
+                                    <a href="infoFilm.php?idfilm='.$film->getIdFilm().'">Scopri di piu..</a>
                                 </div>
                             </div>
                         </div>'
@@ -85,6 +85,9 @@
             ?>
 
             <div class="card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-rgSfqIy93HiXkRq53-XbMlkZsIMoRUIWHpKtPZRbsLeLPY4K');">
+                <div class="content">
+                    <a href="listaFilm.php">Visualizza altri</a>
+                </div>
             </div>
         </div>
     </div>
