@@ -47,9 +47,25 @@
             <h1>I nostri film</h1>
         </div>
         <div id="cards">
-            <div class="card">
-                <img src="https://www.ilgiornaledellarte.com/immagini//IMG20210901123132715_1000.jpeg">
 
+            <?php
+                $films = getFilmsLimit(4);
+
+                foreach ($films as $film){
+                    echo(
+                        '<div class="card">
+                            <img src="'. $film->getCopertina() .'">
+                        </div>'
+                    );
+                }
+            ?>
+
+            <div class="card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-rgSfqIy93HiXkRq53-XbMlkZsIMoRUIWHpKtPZRbsLeLPY4K">
+                <div class="scopriDipiu">
+                    <p>Title</p>
+                    <a href="">Scopri di piu'..</a>
+                </div>
             </div>
         </div>
     </div>
@@ -71,8 +87,13 @@
         window.scrollTo({top: 0, behavior: "smooth"});
         document.getElementById("upToTop").style.display = "none";
     }
+    const x = function (e) {
+      
+    }
 
     window.addEventListener("scroll", scroll);
+    window.addEventListener("load", x);
+    window.addEventListener("resize", x);
     document.getElementById("upToTop").addEventListener("click", click);
 </script>
 

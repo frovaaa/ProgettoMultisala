@@ -213,6 +213,28 @@ function getFilms(): array
         $film->setTrama($riga['Trama']);
         $film->setCopertina($riga['Copertina']);
 
+
+        $filmArray[] = $film;
+    }
+
+    return $filmArray;
+}
+function getFilmsLimit($limit): array
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+
+    $query = "SELECT * FROM Film Limit ". $limit;
+    $data = $connection->query($query);
+
+    $filmArray = [];
+
+    while ($riga = $data->fetch_assoc()) {
+        $film = new Film();
+        $film->setIdFilm($riga['IDFilm']);
+        $film->setTitolo($riga['Titolo']);
+        $film->setTrama($riga['Trama']);
+        $film->setCopertina($riga['Copertina']);
+
         $filmArray[] = $film;
     }
 
