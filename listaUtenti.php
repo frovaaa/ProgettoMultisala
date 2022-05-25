@@ -11,6 +11,8 @@
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+    <!--DataTables-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.css">
     <title>Lista Utenti</title>
 </head>
 <body>
@@ -19,13 +21,13 @@ require_once "queryCollection.php";
 session_start();
 if (!isset($_SESSION['Utente'])) {
     $_SESSION['log'] = "Devi effettuare il login per accedere a questa pagina";
-    header("Location: login.php");
+    header("Location: homepage.php");
     exit();
 }
 //Check if Utente is Administrator
 if (!isAmministratore($_SESSION['Utente'])) {
     $_SESSION['log'] = "Non hai i permessi per accedere a questa pagina";
-    header("Location: login.php");
+    header("Location: homepage.php");
     exit();
 }
 $utenti = getUtenti();
@@ -43,7 +45,7 @@ $utenti = getUtenti();
     <div class="row">
         <div class="col-md-12">
             <h1>Lista Utenti</h1>
-            <table class="table table-striped">
+            <table class="table table-striped" id="tabellaUtenti">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -100,5 +102,17 @@ $utenti = getUtenti();
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#tabellaUtenti').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Italian.json"
+            }
+        });
+    });
+</script>
 </body>
 </html>

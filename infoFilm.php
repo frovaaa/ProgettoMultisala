@@ -22,13 +22,17 @@ $idFilm = $_GET['idFilm'] ?? null;
 if (!$idFilm) {
     $_SESSION['log'] = "Errore nella ricerca del film";
     header("Location: homepage.php");
-    exit;
+    exit();
 }
-$film = getFilmById($idFilm);
+$film = getFilmById($idFilm) ?? null;
+if (null == $film->getIdFilm()) {
+    $_SESSION['log'] = "Errore nella ricerca del film";
+    header("Location: homepage.php");
+    exit();
+}
 
 ?>
 <?php include "navBar.php"; ?>
-
 <!--Film info page-->
 <div class="container mt-3">
     <div class="row">
@@ -56,7 +60,7 @@ $film = getFilmById($idFilm);
                         <?php echo "<b>Regista:</b> " . $film->getRegista(); ?>
                     </p>
                     <p class="card-text">
-                        <?php echo "<b>Cast:</b> "; ?>
+                        <b>Cast:</b> <?php echo getStringAttoriOfFilmID($film->getIdFilm()); ?>
                     </p>
                     <p class="card-text">
                         <?php
@@ -67,7 +71,7 @@ $film = getFilmById($idFilm);
                         echo "<b>Durata:</b> " . $hours . "h " . $minutes . "min";
                         ?>
                     </p>
-                    <p class="card-text">
+                    <p class="card-text text-center">
                         <?php
                         echo "<b>Trailer</b><br>";
                         //Substring to remove the "https://www.youtube.com/watch?v="

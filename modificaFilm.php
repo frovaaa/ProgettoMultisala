@@ -17,13 +17,30 @@
 <?php
 require_once "queryCollection.php";
 session_start();
-$idFilm = $_POST['idFilm'] ?? null;
+if(!isset($_SESSION['Utente'])){
+    $_SESSION['log'] = "Devi effettuare il login per accedere a questa pagina";
+    header("Location: homepage.php");
+    exit();
+}
+$utente = $_SESSION['Utente'];
+if(!isDirettore($utente) && !isAmministratore($utente)){
+    $_SESSION['log'] = "Devi essere direttore per accedere a questa pagina";
+    header("Location: homepage.php");
+    exit();
+}
+
+$idFilm = $_POST['id'] ?? null;
 if ($idFilm == null) {
     $_SESSION['log'] = "Errore nella modifica del film";
     header("Location: gestioneFilm.php");
     exit();
 }
-$film = getFilmById($idFilm);
+$film = getFilmById($idFilm) ?? null;
+if(null == $film->getIdFilm()){
+    $_SESSION['log'] = "Errore nella modifica del film";
+    header("Location: gestioneFilm.php");
+    exit();
+}
 
 ?>
 <?php include "navBar.php"; ?>
@@ -36,7 +53,7 @@ $film = getFilmById($idFilm);
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <form action="modificaFilm.php" method="post">
+            <form action="verificaModificaFilm.php" method="post">
                 <div class="form-group">
                     <label for="titolo">Titolo</label>
                     <input type="text" class="form-control" id="titolo" name="titolo"
@@ -55,22 +72,26 @@ $film = getFilmById($idFilm);
                 <!--Multi select genere film-->
                 <div class="form-group">
                     <label for="genere">Genere</label>
-                    <select class="form-control" id="genere" name="genere[]" multiple>
+                    <select class="form-control" id="genere" name="genere[]" multiple size="8">
                         <?php
                         $genere = getAllGenere();
                         foreach ($genere as $g) {
                             $selected = "";
-                            if (in_array($g->getId(), getFilmGenereByFilm($idFilm))) {
-                                $selected = "selected";
+                            //Foreach per ogni genere del film controllo se selezionato
+                            $tempFilmGenere = getFilmGenereByFilm($idFilm);
+                            foreach ($tempFilmGenere as $fg){
+                                if($fg->getIdfGenere() == $g->getIdGenere()){
+                                    $selected = "selected";
+                                }
                             }
-                            echo "<option value='" . $g->getId() . "' $selected>" . $g->getNome() . "</option>";
+                            echo "<option value='" . $g->getIdGenere() . "' $selected>" . $g->getNome() . "</option>";
                         }
                         ?>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="descrizione">Descrizione</label>
-                    <textarea class="form-control" id="descrizione" name="descrizione"
+                    <label for="trama">Descrizione</label>
+                    <textarea class="form-control" id="trama" name="trama"
                               rows="3"><?php echo $film->getTrama() ?></textarea>
                 </div>
                 <div class="form-group">
@@ -88,12 +109,11 @@ $film = getFilmById($idFilm);
                     <input type="text" class="form-control" id="trailer" name="trailer"
                            value="<?php echo $film->getTrailer() ?>">
                 </div>
+                <input type="hidden" name="idFilm" value="<?php echo $idFilm ?>">
+                <div class="form-group mt-3">
+                    <button type="submit" class="btn btn-primary">Modifica</button>
+                </div>
             </form>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <button type="submit" class="btn btn-primary" form="form">Modifica</button>
         </div>
     </div>
 </div>

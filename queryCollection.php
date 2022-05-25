@@ -42,7 +42,8 @@ function getStringAttoriOfFilmID($IDFilm): string
     //Foreach loop echo attore of attoriFilm
     $stringaAttori = "";
     foreach ($attoriFilm as $attore) {
-        $stringaAttori .= getAttoreById($attore->getIdfAttore())->getNome() . " / ";
+        $attore = getAttoreById($attore->getIdfAttore());
+        $stringaAttori .= $attore->getNome() . ' ' . $attore->getCognome() . " / ";
     }
     return substr($stringaAttori, 0, -3);
 }
@@ -292,6 +293,15 @@ function editFilm($IDFilm, $newFilm): bool
     return $connection->query($query);
 }
 
+//Delete film
+function deleteFilm($IDFilm): bool
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+    $query = "DELETE FROM Film WHERE IDFilm=$IDFilm;";
+
+    return $connection->query($query);
+}
+
 #endregion
 
 #region FUNZIONI FILM_ATTORE
@@ -405,7 +415,7 @@ function insertFilmGenere(FilmGenere $filmGenere): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
     $query = "INSERT INTO FilmGenere (IDFFilm, IDFGenere)
-    VALUES (" . $filmGenere->getIdfGenere() . ", " . $filmGenere->getIdfFilm() . ");";
+    VALUES (" . $filmGenere->getIdfFilm() . ", " . $filmGenere->getIdfGenere() . ");";
 
     return $connection->query($query);
 }
@@ -414,8 +424,17 @@ function editFilmGenere($idFilm, $idfGenere, $newFilmGenere): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
     $query = "UPDATE FilmGenere 
-    SET IDFFilm=" . $newFilmGenere->getIdfGenere() . ", IDFGenere=" . $newFilmGenere->getIdfFilm() . "
+    SET IDFFilm=" . $newFilmGenere->getIdfFilm() . ", IDFGenere=" . $newFilmGenere->getIdfGenere() . "
     WHERE IDFFilm=$idFilm AND IDFGenere=$idfGenere;";
+
+    return $connection->query($query);
+}
+
+//Delete all film_genere of a film
+function deleteFilmGenereByFilm($IDFilm): bool
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+    $query = "DELETE FROM FilmGenere WHERE IDFFilm=" . $IDFilm;
 
     return $connection->query($query);
 }

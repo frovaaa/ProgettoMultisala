@@ -22,7 +22,7 @@ session_start();
 
 $arrayFilm = getFilms();
 ?>
-<?php include "navBar.php"?>
+<?php include "navBar.php" ?>
 <div class="container mt-3">
     <?php
     //Foreachloop with arrayFilm
@@ -34,8 +34,10 @@ $arrayFilm = getFilms();
                 <div class="card m-3" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="<?php echo "$copertina" ?>" class="img-fluid rounded-start"
-                                 alt="Copertina non disponibile">
+                            <a href="infoFilm.php?idFilm=<?php echo $film->getIdFilm() ?>">
+                                <img src="<?php echo "$copertina" ?>" class="img-fluid rounded-start"
+                                     alt="Copertina non disponibile">
+                            </a>
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
