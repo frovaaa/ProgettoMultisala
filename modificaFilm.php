@@ -142,13 +142,13 @@ if (null == $film->getIdFilm()) {
                 </div>
                 <input type="hidden" name="idFilm" value="<?php echo $idFilm ?>">
                 <div class="form-group mt-3">
-                    <button type="submit" class="btn btn-primary">Modifica</button>
+                    <button type="submit" class="btn btn-success">Modifica</button>
                 </div>
             </form>
             <hr>
             <div class="form-group mt-2 mb-3">
                 <form action="verificaInserisciAttore.php" method="post">
-                    <label for="attore">Aggiungi nuovo attore</label>
+                    <h5>Aggiungi nuovo attore</h5>
                     <input type="text" class="form-control" id="nomeAttore" name="nomeAttore" placeholder="Nome">
                     <input type="text" class="form-control" id="cognomeAttore" name="cognomeAttore"
                            placeholder="Cognome">

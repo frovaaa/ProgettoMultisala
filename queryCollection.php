@@ -297,6 +297,29 @@ function getFilmsLimit($limit): array
     return $filmArray;
 }
 
+//Get film by film
+function getFilmByFilm(Film $film): Film
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+
+    $query = "SELECT * FROM Film WHERE Titolo='" . $film->getTitolo() . "' AND Anno='" . $film->getAnno() . "' AND Regista='" . $film->getRegista() . "' AND Trama='" . $film->getTrama() . "' AND Copertina='" . $film->getCopertina() . "' AND Trailer='" . $film->getTrailer() . "' AND Durata='" . $film->getDurata() . "'";
+    $data = $connection->query($query);
+    $data = $data->fetch_assoc();
+
+    $film = new Film();
+
+    $film->setIdFilm($data['IDFilm']);
+    $film->setTitolo($data['Titolo']);
+    $film->setTrama($data['Trama']);
+    $film->setCopertina($data['Copertina']);
+    $film->setRegista($data['Regista']);
+    $film->setDurata($data['Durata']);
+    $film->setTrailer($data['Trailer']);
+    $film->setAnno($data['Anno']);
+
+    return $film;
+}
+
 function insertFilm(Film $film): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");

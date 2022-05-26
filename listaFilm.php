@@ -25,6 +25,14 @@ $arrayFilm = getFilms();
 <?php include "navBar.php" ?>
 <div class="container mt-3">
     <?php
+    if (isset($_SESSION['log'])) {
+        echo "<div class='alert alert-primary' role='alert'>
+        <strong>Attenzione!</strong> " . $_SESSION['log'] . "
+    </div>";
+        unset($_SESSION['log']);
+    }
+    ?>
+    <?php
     //Foreachloop with arrayFilm
     foreach ($arrayFilm as $film) {
         $copertina = $film->getCopertina();
