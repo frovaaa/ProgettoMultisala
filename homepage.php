@@ -37,11 +37,11 @@ session_start();
         unset($_SESSION['log']);
     }
     ?>
-    <div id="selectMultisala">
+    <!--<div id="selectMultisala">
         <label>I nostri cinema </label>
         <select id="cinemaSelect">
             <?php
-            $cinema = getNomeCinema();
+/*            $cinema = getNomeCinema();
             $id = null;
 
             if ($_GET["id"] != null) {
@@ -66,9 +66,9 @@ session_start();
                             </option>");
                 }
             }
-            ?>
+            */?>
         </select>
-    </div>
+    </div>-->
     <div id="nostriFilm">
         <div id="title">
             <h1>I nostri film</h1>

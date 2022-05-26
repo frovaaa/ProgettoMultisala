@@ -6,20 +6,26 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- Bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
 
 </head>
 <body>
 <?php
 session_start();
-if (isset($_SESSION['log'])) {
-    echo "<h3>" . $_SESSION['log'] . "</h3>";
-    unset($_SESSION['log']);
-}
 ?>
 <div class="container">
+    <?php
+    if (isset($_SESSION['log'])) {
+        echo "<div class='alert alert-primary mt-3' role='alert'>
+        <strong>Attenzione!</strong> " . $_SESSION['log'] . "
+    </div>";
+        unset($_SESSION['log']);
+    }
+    ?>
     <!--Login page of cinema-->
     <div class="row mt-3">
         <div class="col-md-6 offset-md-3">
@@ -31,7 +37,8 @@ if (isset($_SESSION['log'])) {
                     <form action="verificaLogin.php" method="post">
                         <div class="form-group">
                             <label for="usernameOrEmail">Username / Email</label>
-                            <input type="text" class="form-control" id="usernameOrEmail" name="usernameOrEmail" placeholder="Username / Email">
+                            <input type="text" class="form-control" id="usernameOrEmail" name="usernameOrEmail"
+                                   placeholder="Username / Email">
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>

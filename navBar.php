@@ -42,10 +42,19 @@ m-57 -47 c28 -15 34 -15 68 1 27 12 43 14 56 7 15 -8 10 -14 -36 -40 -52 -30
                 </li>
                 <li> <a href="listaFilm.php">Film</a> </li>
                 <li> <a href="listaSala.php">Sale</a> </li>
-                <li> <a href="listaFilm.php">Programmazioni</a> </li>
                 <li> <a href="listaPrenotazioni.php">Prenotazioni</a> </li>
-                <li> <a href="listaUtenti.php">Utenti</a> </li>
-                <li> <a href="gestioneFilm.php">Gestione Film</a> </li>
+                <?php
+                    $utente = $_SESSION['Utente'] ?? null;
+                    if($utente != null){
+                        if(isDirettore($utente)){
+                            echo "<li> <a href='listaUtenti.php'>Gestione Utenti</a> </li>";
+                        }
+                        if(isAmministratore($utente) || isDirettore($utente)){
+                            echo "<li> <a href='gestioneFilm.php'>Gestione Film</a> </li>";
+                        }
+                        echo "<li> <a href='logout.php'>Logout</a> </li>";
+                    }
+                ?>
             </ul>
         </div>
         <div id="profile">

@@ -28,8 +28,15 @@ if ($data->num_rows > 0) {
                 setcookie("rememberMe", $riga['IDUtente'], strtotime("+1 week"));
             }
 
+            $utente = getUtenteById($riga['IDUtente']);
+            if($utente->getAttivo() == 0) {
+                $_SESSION['log'] = "L'account è stato disabilitato da un amministratore";
+                header("Location:login.php");
+                exit();
+            }
+
             //Salvo in sessione l'utente loggato
-            $_SESSION['Utente'] = getUtenteById($riga['IDUtente']);
+            $_SESSION['Utente'] = $utente;
 
             if (isset($_SESSION['redirect'])) header("Location:" . $_SESSION['redirect']);
             else header("Location:homepage.php");
