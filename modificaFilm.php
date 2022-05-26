@@ -17,13 +17,13 @@
 <?php
 require_once "queryCollection.php";
 session_start();
-if(!isset($_SESSION['Utente'])){
+if (!isset($_SESSION['Utente'])) {
     $_SESSION['log'] = "Devi effettuare il login per accedere a questa pagina";
     header("Location: homepage.php");
     exit();
 }
 $utente = $_SESSION['Utente'];
-if(!isDirettore($utente) && !isAmministratore($utente)){
+if (!isDirettore($utente) && !isAmministratore($utente)) {
     $_SESSION['log'] = "Devi essere direttore per accedere a questa pagina";
     header("Location: homepage.php");
     exit();
@@ -31,12 +31,15 @@ if(!isDirettore($utente) && !isAmministratore($utente)){
 
 $idFilm = $_POST['id'] ?? null;
 if ($idFilm == null) {
-    $_SESSION['log'] = "Errore nella modifica del film";
-    header("Location: gestioneFilm.php");
-    exit();
+    $idFilm = $_GET['id'] ?? null;
+    if ($idFilm == null) {
+        $_SESSION['log'] = "Devi selezionare un film per modificarlo";
+        header("Location: homepage.php");
+        exit();
+    }
 }
 $film = getFilmById($idFilm) ?? null;
-if(null == $film->getIdFilm()){
+if (null == $film->getIdFilm()) {
     $_SESSION['log'] = "Errore nella modifica del film";
     header("Location: gestioneFilm.php");
     exit();
@@ -46,6 +49,14 @@ if(null == $film->getIdFilm()){
 <?php include "navBar.php"; ?>
 <!--Film edit page-->
 <div class="container">
+    <?php
+    if (isset($_SESSION['log'])) {
+        echo "<div class='alert alert-primary' role='alert'>
+        <strong>Attenzione!</strong> " . $_SESSION['log'] . "
+    </div>";
+        unset($_SESSION['log']);
+    }
+    ?>
     <div class="row">
         <div class="col-sm-12">
             <h1>Modifica Film</h1>
@@ -79,8 +90,8 @@ if(null == $film->getIdFilm()){
                             $selected = "";
                             //Foreach per ogni genere del film controllo se selezionato
                             $tempFilmGenere = getFilmGenereByFilm($idFilm);
-                            foreach ($tempFilmGenere as $fg){
-                                if($fg->getIdfGenere() == $g->getIdGenere()){
+                            foreach ($tempFilmGenere as $fg) {
+                                if ($fg->getIdfGenere() == $g->getIdGenere()) {
                                     $selected = "selected";
                                 }
                             }
@@ -89,7 +100,27 @@ if(null == $film->getIdFilm()){
                         ?>
                     </select>
                 </div>
+                <!--Attore multiselect-->
                 <div class="form-group">
+                    <label for="attore">Attore</label>
+                    <select class="form-control" id="attore" name="attore[]" multiple size="8">
+                        <?php
+                        $attore = getAllAttori();
+                        foreach ($attore as $a) {
+                            $selected = "";
+                            //Foreach per ogni attore del film controllo se selezionato
+                            $tempFilmAttore = getFilmAttoreByFilm($idFilm);
+                            foreach ($tempFilmAttore as $fa) {
+                                if ($fa->getIdfAttore() == $a->getIdAttore()) {
+                                    $selected = "selected";
+                                }
+                            }
+                            echo "<option value='" . $a->getIdAttore() . "' $selected>" . $a->getNome() . " " . $a->getCognome() . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group mt-2">
                     <label for="trama">Descrizione</label>
                     <textarea class="form-control" id="trama" name="trama"
                               rows="3"><?php echo $film->getTrama() ?></textarea>
@@ -114,6 +145,21 @@ if(null == $film->getIdFilm()){
                     <button type="submit" class="btn btn-primary">Modifica</button>
                 </div>
             </form>
+            <hr>
+            <div class="form-group mt-2 mb-3">
+                <form action="verificaInserisciAttore.php" method="post">
+                    <label for="attore">Aggiungi nuovo attore</label>
+                    <input type="text" class="form-control" id="nomeAttore" name="nomeAttore" placeholder="Nome">
+                    <input type="text" class="form-control" id="cognomeAttore" name="cognomeAttore"
+                           placeholder="Cognome">
+                    <label for="dataNascita">Data di nascita</label>
+                    <input type="date" class="form-control" id="dataNascita"
+                           name="dataNascita" placeholder="Data di nascita">
+                    <input type="hidden" name="redirect" value="modificaFilm.php">
+                    <input type="hidden" name="idFilm" value="<?php echo $idFilm; ?>">
+                    <button type="submit" class="btn btn-primary mt-1">Aggiungi</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

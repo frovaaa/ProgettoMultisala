@@ -26,7 +26,7 @@ if (!isset($_SESSION['Utente'])) {
     exit();
 }
 $utente = $_SESSION['Utente'];
-if(!isDirettore($utente) && !isAmministratore($utente)){
+if (!isDirettore($utente) && !isAmministratore($utente)) {
     $_SESSION['log'] = "Devi essere direttore per accedere a questa pagina";
     header("Location: homepage.php");
     exit();
@@ -37,6 +37,14 @@ if(!isDirettore($utente) && !isAmministratore($utente)){
 
 <!--Table with all Films inside-->
 <div class="container">
+    <?php
+    if (isset($_SESSION['log'])) {
+        echo "<div class='alert alert-primary' role='alert'>
+        <strong>Attenzione!</strong> " . $_SESSION['log'] . "
+    </div>";
+        unset($_SESSION['log']);
+    }
+    ?>
     <div class="row">
         <div class="col-md-12">
             <h1>Gestione Film</h1>

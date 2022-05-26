@@ -48,6 +48,29 @@ function getStringAttoriOfFilmID($IDFilm): string
     return substr($stringaAttori, 0, -3);
 }
 
+//Get all attore
+function getAllAttori(): array
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+
+    $query = "SELECT * FROM Attore";
+    $data = $connection->query($query);
+
+    $attori = [];
+    while ($row = $data->fetch_assoc()) {
+        $attore = new Attore();
+
+        $attore->setIdAttore($row['IDAttore']);
+        $attore->setNome($row['Nome']);
+        $attore->setCognome($row['Cognome']);
+        $attore->setDataDiNascita($row['DataDiNascita']);
+
+        $attori[] = $attore;
+    }
+
+    return $attori;
+}
+
 function insertAttore(Attore $attore): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
@@ -351,7 +374,7 @@ function insertFilmAttore(FilmAttore $filmAttore): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
     $query = "INSERT INTO FilmAttore (IDFFilm, IDFAttore)
-    VALUES (" . $filmAttore->getIdfAttore() . ", " . $filmAttore->getIdfFilm() . ");";
+    VALUES (" . $filmAttore->getIdfFilm() . ", " . $filmAttore->getIdfAttore() . ");";
 
     return $connection->query($query);
 }
@@ -360,8 +383,17 @@ function editFilmAttore($idFilm, $idfAttore, $newFilmAttore): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
     $query = "UPDATE FilmAttore 
-    SET IDFFilm=" . $newFilmAttore->getIdfAttore() . ", IDFAttore=" . $newFilmAttore->getIdfFilm() . "
+    SET IDFFilm=" . $newFilmAttore->getIdfFilm() . ", IDFAttore=" . $newFilmAttore->getIdfAttore() . "
     WHERE IDFFilm=$idFilm AND IDFAttore=$idfAttore;";
+
+    return $connection->query($query);
+}
+
+//deleteFilmAttoreByFilm
+function deleteFilmAttoreByFilm($IDFilm): bool
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+    $query = "DELETE FROM FilmAttore WHERE IDFFilm=$IDFilm;";
 
     return $connection->query($query);
 }

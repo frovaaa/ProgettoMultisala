@@ -36,6 +36,22 @@ if ($genere != null) {
     }
 }
 
+//Foreach attore creo un elemento FilmAttore
+$attore = $_POST['attore'] ?? null;
+if ($attore != null) {
+    deleteFilmAttoreByFilm($idFilm);
+    foreach ($attore as $idAttore) {
+        $tempFilmAttore = new FilmAttore();
+        $tempFilmAttore->setIdfFilm((int)$idFilm);
+        $tempFilmAttore->setIdfAttore((int)$idAttore);
+        if (!insertFilmAttore($tempFilmAttore)) {
+            $_SESSION['log'] = "Errore nell'inserimento degli attori del film";
+            header("Location: homepage.php");
+            exit();
+        }
+    }
+}
+
 $_SESSION['log'] = "Film modificato correttamente";
 header("Location: gestioneFilm.php");
 exit();
