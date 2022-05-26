@@ -659,6 +659,26 @@ function getPostiBySala($IDFSala): array
     return $resultArray;
 }
 
+//get posto by prenotazionePosto
+function getPostoByPrenotazionePosto($IDPrenotazionePosto): Posto
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+
+    $query = "SELECT * FROM Posto WHERE IDPosto=" . $IDPrenotazionePosto;
+    $data = $connection->query($query);
+    $data = $data->fetch_assoc();
+
+    $posto = new Posto();
+
+    $posto->setIdPosto($data['IDPosto']);
+    $posto->setIdfTipoPosto($data['IDFTipoPosto']);
+    $posto->setIdfSala($data['IDFSala']);
+    $posto->setRiga($data['Riga']);
+    $posto->setColonna($data['Colonna']);
+
+    return $posto;
+}
+
 function insertPosto(Posto $posto): bool
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
@@ -692,6 +712,18 @@ function isPostoOccupato($IDPosto, $IDProgrammazione): bool
     else return true;
 }
 
+//From array of prenotazionePosto to string of posti
+function getPostiFromPrenotazionePosto(array $prenotazionePosto): string
+{
+    $posti = "";
+    foreach ($prenotazionePosto as $pp) {
+        $posto = getPostoById($pp->getIdfPosto());
+        $posti .= $posto->getColonna() . "-" . $posto->getRiga() . " | ";
+    }
+    $posti = substr($posti, 0, -1);
+    return $posti;
+}
+
 #endregion
 
 #region FUNZIONI PRENOTAZIONE
@@ -714,42 +746,56 @@ function getPrenotazioneById($IDPrenotazione): Prenotazione
     return $prenotazione;
 }
 
-function getPrenotazioneByIdUtente($IDFUtente): Prenotazione
+//get prenotazioni by utente
+function getPrenotazioniByUtente($IDFUtente): array
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
     $query = "SELECT * FROM Prenotazione WHERE IDFUtente=" . $IDFUtente;
     $data = $connection->query($query);
-    $data = $data->fetch_assoc();
+    if (!$data) return [];
 
-    $prenotazione = new Prenotazione();
+    $resultArray = [];
 
-    $prenotazione->setIdPrenotazione($data['IDPrenotazione']);
-    $prenotazione->setIdfUtente($data['IDFUtente']);
-    $prenotazione->setIdfProgrammazione($data['IDFProgrammazione']);
-    $prenotazione->setDataPrenotazione($data['DataPrenotazione']);
-    $prenotazione->setCodice($data['Codice']);
+    while ($riga = $data->fetch_assoc()) {
+        $prenotazione = new Prenotazione();
 
-    return $prenotazione;
+        $prenotazione->setIdPrenotazione($riga['IDPrenotazione']);
+        $prenotazione->setIdfUtente($riga['IDFUtente']);
+        $prenotazione->setIdfProgrammazione($riga['IDFProgrammazione']);
+        $prenotazione->setDataPrenotazione($riga['DataPrenotazione']);
+        $prenotazione->setCodice($riga['Codice']);
+
+        $resultArray[] = $prenotazione;
+    }
+
+    return $resultArray;
 }
 
-function getPrenotazioneByProgrammazione($IDFProgrammazione): Prenotazione
+//Get prenotazioni by programmazione
+function getPrenotazioniByProgrammazione($IDFProgrammazione): array
 {
     $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
 
     $query = "SELECT * FROM Prenotazione WHERE IDFProgrammazione=" . $IDFProgrammazione;
     $data = $connection->query($query);
-    $data = $data->fetch_assoc();
+    if (!$data) return [];
 
-    $prenotazione = new Prenotazione();
+    $resultArray = [];
 
-    $prenotazione->setIdPrenotazione($data['IDPrenotazione']);
-    $prenotazione->setIdfUtente($data['IDFUtente']);
-    $prenotazione->setIdfProgrammazione($data['IDFProgrammazione']);
-    $prenotazione->setDataPrenotazione($data['DataPrenotazione']);
-    $prenotazione->setCodice($data['Codice']);
+    while ($riga = $data->fetch_assoc()) {
+        $prenotazione = new Prenotazione();
 
-    return $prenotazione;
+        $prenotazione->setIdPrenotazione($riga['IDPrenotazione']);
+        $prenotazione->setIdfUtente($riga['IDFUtente']);
+        $prenotazione->setIdfProgrammazione($riga['IDFProgrammazione']);
+        $prenotazione->setDataPrenotazione($riga['DataPrenotazione']);
+        $prenotazione->setCodice($riga['Codice']);
+
+        $resultArray[] = $prenotazione;
+    }
+
+    return $resultArray;
 }
 
 //Get prenotazione by codice and datetime
@@ -791,6 +837,15 @@ function editPrenotazione($IDPrenotazione, $newPrenotazione): bool
     $query = "UPDATE Prenotazione 
     SET IDFUtente=" . $newPrenotazione->getIdfUtente() . ", IDFProgrammazione=" . $newPrenotazione->getIdfProgrammazione() . ", DataPrenotazione='" . $newPrenotazione->getDataPrenotazione() . "', Codice='" . $newPrenotazione->getCodice() . "'
     WHERE IDPrenotazione=" . $IDPrenotazione;
+
+    return $connection->query($query);
+}
+
+//Delete prenotazione by ID
+function deletePrenotazione($IDPrenotazione): bool
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+    $query = "DELETE FROM Prenotazione WHERE IDPrenotazione=" . $IDPrenotazione;
 
     return $connection->query($query);
 }
