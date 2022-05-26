@@ -182,6 +182,15 @@ function getAllCinemas(): array
     return $cinemas;
 }
 
+//Delete cinema by id
+function deleteCinema($IDCinema): bool
+{
+    $connection = new mysqli("localhost", "Frova", "Frova", "multisala_frova_pocaterra_sannazzaro");
+    $query = "DELETE FROM Cinema WHERE IDCinema=" . $IDCinema;
+
+    return $connection->query($query);
+}
+
 #endregion
 
 #region FUNZIONI EVENTO

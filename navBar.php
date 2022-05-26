@@ -47,11 +47,12 @@ m-57 -47 c28 -15 34 -15 68 1 27 12 43 14 56 7 15 -8 10 -14 -36 -40 -52 -30
                     $utente = $_SESSION['Utente'] ?? null;
                     if($utente != null){
                         if(isDirettore($utente)){
-                            echo "<li> <a href='listaUtenti.php'>Gestione Utenti</a> </li>";
-                        }
-                        if(isAmministratore($utente) || isDirettore($utente)){
                             echo "<li> <a href='gestioneFilm.php'>Gestione Film</a> </li>";
                             echo "<li> <a href='inserisciFilm.php'>Inserisci Film</a> </li>";
+                        }
+                        if(isAmministratore($utente) || isDirettore($utente)){
+                            echo "<li> <a href='listaUtenti.php'>Gestione Utenti</a> </li>";
+                            echo "<li> <a href='gestioneCinemas.php'>Gestione Cinema</a> </li>";
                         }
                         echo "<li> <a href='logout.php'>Logout</a> </li>";
                     }
