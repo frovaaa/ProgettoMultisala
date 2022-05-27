@@ -24,7 +24,7 @@ if (!isset($_SESSION['Utente'])) {
 }
 if (!isAmministratore($_SESSION['Utente'])) {
     $_SESSION['log'] = "Non sei autorizzato a visualizzare questa pagina";
-    header("Location: index.php");
+    header("Location: homepage.php");
     exit();
 }
 $utenteModifica = null;

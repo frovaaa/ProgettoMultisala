@@ -20,6 +20,11 @@
 <?php
 require_once "queryCollection.php";
 session_start();
+if (!isAmministratore($_SESSION['Utente'])) {
+    $_SESSION['log'] = "Non hai i permessi per accedere a questa pagina";
+    header("Location: homepage.php");
+    exit();
+}
 
 ?>
 <?php include "navBar.php"; ?>

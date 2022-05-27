@@ -25,7 +25,7 @@ if (!isset($_SESSION['Utente'])) {
     exit();
 }
 //Check if Utente is Administrator
-if (!isAmministratore($_SESSION['Utente']) && !isDirettore($_SESSION['Utente'])) {
+if (!isAmministratore($_SESSION['Utente'])) {
     $_SESSION['log'] = "Non hai i permessi per accedere a questa pagina";
     header("Location: homepage.php");
     exit();
