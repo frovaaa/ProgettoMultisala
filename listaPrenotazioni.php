@@ -48,6 +48,7 @@ $idUtente = $utente->getIdUtente();
             <table class="table table-striped">
                 <thead>
                 <tr>
+                    <th scope="col">Film / Evento</th>
                     <th scope="col">Sala</th>
                     <th scope="col">Data</th>
                     <th scope="col">Ora</th>
@@ -61,12 +62,25 @@ $idUtente = $utente->getIdUtente();
                 foreach ($prenotazioni as $prenotazione) {
                     $programmazione = getProgrammazioneById($prenotazione->getIdfProgrammazione());
 
-                    $data = date_create($programmazione->getData());
+                    $dataProgrammazione = $programmazione->getData();
+
+                    //If programmazione data is in the past, continue
+                    if ($dataProgrammazione < date("Y-m-d")) continue;
+
+                    $data = date_create($dataProgrammazione);
                     $data = date_format($data, "d/m/Y");
-                    $ora = date_create($programmazione->getData());
+                    $ora = date_create($dataProgrammazione);
                     $ora = date_format($ora, "H:i");
                     $posti = getPostiFromPrenotazionePosto(getPrenotazioniPostoByPrenotazione($prenotazione->getIdPrenotazione()));
                     echo "<tr>";
+                    //Print evento name or film name if evento is null
+                    if ($programmazione->getIdfEvento() == null) {
+                        $film = getFilmById($programmazione->getIdfFilm());
+                        echo "<td>" . $film->getTitolo() . "</td>";
+                    } else {
+                        $evento = getEventoById($programmazione->getIdfEvento());
+                        echo "<td>" . $evento->getDescrizione() . "</td>";
+                    }
                     echo "<td>" . $programmazione->getIdfSala() . "</td>";
                     echo "<td>" . $data . "</td>";
                     echo "<td>" . $ora . "</td>";

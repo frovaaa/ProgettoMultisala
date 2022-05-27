@@ -53,7 +53,7 @@ if (isset($_POST['immagineProfilo'])) $utenteModificato->setImmagineProfilo($_PO
 
 if (editUtente($utenteVecchio->getIdUtente(), $utenteModificato)) {
     $_SESSION['log'] = "Utente modificato con successo";
-    if ($sourceModifica == '1') {
+    if ($sourceModifica == '1' || $utenteModificato->getIdUtente() == $_SESSION['Utente']->getIdUtente()) {
         $_SESSION['Utente'] = $utenteModificato;
         header("Location: profile.php");
     } else header("Location: listaUtenti.php");
